@@ -1,0 +1,17 @@
+# Core Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Database
+sqlalchemy>=2.0.0
+pymysql>=1.1.0
+
+# Configuration
+python-dotenv>=1.0.0
+
+# Web UI & Visualization (NiceGUI - Top 0.1% Choice!)
+nicegui>=1.4.0
+plotly>=5.17.0
+
+# Notebook Visualization (Demo)
+matplotlib>=3.7.0

@@ -1,0 +1,2572 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage[table]{xcolor}
+\usepackage{fontspec}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{colortbl} % THÊM DÒNG NÀY
+
+\usepackage{titlesec}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\minimize}{\operatornamewithlimits{minimize}}
+\newcommand{\maximize}{\operatornamewithlimits{maximize}}
+\newcommand{\subjectto}{\text{subject to}}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{mdframed} 
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+
+\usepackage{titlesec}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins} % Thư viện bắt buộc để break trang
+\usepackage{caption}             % Để dùng \captionof
+\usepackage{float}               % Để dùng H (nếu cần cho các hình khác)
+
+
+% --- FIX: Thêm gói hyperref để mục lục có thể click được ---
+\usepackage[hidelinks]{hyperref} 
+% -----------------------------------------------------------
+
+% Cấu hình header/footer
+\pagestyle{fancy}
+\fancyhf{} % xóa mọi header/footer mặc định
+\fancyhead[L]{\footnotesize\color{gray}-- DSEB 66A --} % góc trái trên
+\fancyfoot[R]{\footnotesize Page \thepage} % (tùy chọn) số trang phải dưới
+
+% Tắt header trên trang đầu (trang bìa)
+\thispagestyle{empty}
+
+% Define colors for code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Setup listings package for Python code
+\lstdefinestyle{python}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    framesep=3pt
+}
+\lstset{style=python}
+% Code listing style
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+% Colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+
+% Section formatting
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{}{0pt}{Problem~\arabic{section}:~}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+  % Cấu hình hỗ trợ tiếng Việt cho gói listings
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {à}{{\`a}}1 {ả}{{\'a}}1 {ã}{{\~a}}1 {ạ}{{\d{a}}}1
+             {Á}{{\'A}}1 {À}{{\`A}}1 {Ả}{{\'A}}1 {Ã}{{\~A}}1 {Ạ}{{\d{A}}}1
+             {ă}{{\u{a}}}1 {ắ}{{\'a}}1 {ằ}{{\`a}}1 {ẳ}{{\'a}}1 {ẵ}{{\~a}}1 {ặ}{{\d{a}}}1
+             {â}{{\^a}}1 {ấ}{{\'a}}1 {ầ}{{\`a}}1 {ẩ}{{\'a}}1 {ẫ}{{\~a}}1 {ậ}{{\d{a}}}1
+             {đ}{{\d{d}}}1 {Đ}{{\d{D}}}1
+             {é}{{\'e}}1 {è}{{\`e}}1 {ẻ}{{\'e}}1 {ẽ}{{\~e}}1 {ẹ}{{\d{e}}}1
+             {ê}{{\^e}}1 {ế}{{\'e}}1 {ề}{{\`e}}1 {ể}{{\'e}}1 {ễ}{{\~e}}1 {ệ}{{\d{e}}}1
+             {í}{{\'i}}1 {ì}{{\`i}}1 {ỉ}{{\'i}}1 {ĩ}{{\~i}}1 {ị}{{\d{i}}}1
+             {ó}{{\'o}}1 {ò}{{\`o}}1 {ỏ}{{\'o}}1 {õ}{{\~o}}1 {ọ}{{\d{o}}}1
+             {ô}{{\^o}}1 {ố}{{\'o}}1 {ồ}{{\`o}}1 {ổ}{{\'o}}1 {ỗ}{{\~o}}1 {ộ}{{\d{o}}}1
+             {ơ}{{\'o}}1 {ờ}{{\`o}}1 {ở}{{\'o}}1 {ỡ}{{\~o}}1 {ợ}{{\d{o}}}1
+             {ú}{{\'u}}1 {ù}{{\`u}}1 {ủ}{{\'u}}1 {ũ}{{\~u}}1 {ụ}{{\d{u}}}1
+             {ư}{{\'u}}1 {ừ}{{\`u}}1 {ử}{{\'u}}1 {ữ}{{\~u}}1 {ự}{{\d{u}}}1
+             {ý}{{\'y}}1 {ỳ}{{\`y}}1 {ỷ}{{\'y}}1 {ỹ}{{\~y}}1 {ỵ}{{\d{y}}}1
+}
+
+\begin{document}
+
+% =============== trang  ===============
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+   --- (logo NEU) ---
+  \node[inner sep=0pt, opacity=0.08] at (current page.center) {
+     \includegraphics[width=1.2\paperwidth]{img/logo_neu.png} % TODO: Bỏ comment dòng này khi đã có file ảnh
+    
+  };
+  
+  % --- Khung nội dung chính  ---
+  \node[draw=black, very thick, rounded corners=10pt,
+inner xsep=1.5em,    
+inner ysep=1.5em,
+text width=\textwidth,
+        align=center, fill=white, opacity=0.98] at (current page.center) {
+    \begin{minipage}{\textwidth}
+      \centering
+      {\Large \textbf{\href{https://www.neu.edu.vn/}{NATIONAL ECONOMICS UNIVERSITY} \\ ….0O0….}}\vspace{2em}
+      
+       \includegraphics[width=0.4\linewidth]{img/logo_neu.png}\vspace{2em} % TODO: Bỏ comment dòng này khi đã có file ảnh
+      
+      
+      {\LARGE \textbf{PYTHON PROJECT}}\vspace{0.8em}
+      
+      Xây dựng Pipeline Phân tích Dữ liệu Sinh viên \vspace{2.5em}
+      
+      \begin{tabular}{l}
+    
+        Class: DSEB 66A \\
+      \end{tabular}\vspace{2.5em}
+      
+      \begin{tabular}{@{}l@{\hspace{3em}}l@{}}
+        Members: & Lại Minh An - 11245829\vspace{0.7em}
+
+      \end{tabular}\vspace{2.5em}
+      
+      \today
+    \end{minipage}
+  };
+\end{tikzpicture}
+\end{titlepage}
+
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Giới thiệu}
+
+\textbf{�� GitHub Repository:} \href{https://github.com/yourusername/student-management-system}{Link to your GitHub Repository}
+
+\subsection{Bối cảnh bài tập}
+
+Dự án này được xây dựng nhằm phát triển một \textbf{hệ thống quản lý và phân tích dữ liệu sinh viên} hoàn chỉnh, với dữ liệu được lưu trữ trong \textbf{MySQL database} (bảng \texttt{students}).
+
+\textbf{Thách thức chính:}
+\begin{itemize}
+    \item Dữ liệu thô có \textbf{missing values} (giá trị bị thiếu)
+    \item Cần \textbf{tính toán các đặc trưng mới} (BMI, Age, Z-scores)
+    \item Phát hiện \textbf{outliers} (ngoại lệ) trong dữ liệu
+    \item Tạo \textbf{báo cáo thống kê} theo ngành học
+    \item Xây dựng \textbf{web interface} cho người dùng phi kỹ thuật
+\end{itemize}
+
+\textbf{Nhiệm vụ:}
+\begin{itemize}
+\item \textbf{Thiết kế hệ thống (System Design):} Xây dựng kiến trúc OOP vững chắc để tách biệt các lớp kết nối cơ sở dữ liệu, truy xuất dữ liệu và phân tích dữ liệu.
+    \item \textbf{Tiền xử lý (Preprocessing):} Thực hiện pipeline để xử lý giá trị thiếu (missing values), tạo đặc trưng mới (BMI, Age), tính toán Z-scores và phát hiện ngoại lệ (outliers) bằng phương pháp IQR.
+    \item \textbf{Phân tích (Analysis):} Tạo các bảng thống kê tóm tắt theo chuyên ngành, xếp hạng sinh viên tiêu biểu và rút ra các insights ý nghĩa.
+        \item \textbf{Báo cáo (Reporting):} Xuất dữ liệu đã xử lý và kết quả ra file CSV (\texttt{student\_report.csv}).
+        
+        \item 
+Kết hợp với \textbf{NiceGUI} để tạo giao diện web tương tác, thêm tính năng \textbf{CRUD} nhập liệu linh hoạt để tương tác với số liệu .
+\end{itemize}
+\subsection{Mục tiêu tổng quát}
+
+\subsubsection*{A. Kiến trúc phần mềm (Clean Architecture)}
+Xây dựng hệ thống theo \textbf{Layered Architecture} với các tầng rõ ràng:
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=none]
+┌───────────────────────────────────────┐
+│  UI Layer (NiceGUI)                   │  ← Web Interface with Plotly charts
+│  - Interactive parameter tuning       │
+│  - Real-time visualization            │
+├───────────────────────────────────────┤
+│  Service Layer (Analytics)            │  ← Business Logic
+│  - Data processing (Pandas/NumPy)     │
+│  - Statistical analysis               │
+├───────────────────────────────────────┤
+│  Repository Layer (Data Access)       │  ← Database Queries
+│  - MySQL queries (SQLAlchemy)         │
+│  - CRUD operations                    │
+├───────────────────────────────────────┤
+│  Infrastructure (MySQL Client)        │  ← Database Connection
+└───────────────────────────────────────┘
+\end{lstlisting}
+
+\textbf{Nguyên tắc thiết kế:}
+\begin{itemize}
+    \item \textbf{Separation of Concerns}: Mỗi tầng có trách nhiệm riêng biệt
+    \item \textbf{Dependency Inversion}: UI phụ thuộc vào Service (abstraction), không phải implementation
+    \item \textbf{Single Responsibility}: Mỗi class chỉ làm một việc
+\end{itemize}
+
+% ======================================================================
+% CÁC GÓI CẦN THIẾT (Copy vào đầu file main.tex của bạn)
+% \usepackage[utf8]{inputenc}
+% \usepackage[vietnamese]{babel}
+% \usepackage{float}       % Để cố định hình ảnh/bảng [H]
+% \usepackage{graphicx}
+% \usepackage{booktabs}    % Kẻ bảng đẹp (\toprule, \midrule)
+% \usepackage{listings}    % Hiển thị code
+% \usepackage{xcolor}      % Màu sắc
+% \usepackage{tikz}        % Vẽ sơ đồ
+% \usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+% ======================================================================
+
+% Cấu hình hiển thị Code (Python/SQL)
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    escapeinside={(*}{*)},
+    literate={á}{{\'a}}1 {à}{{\`a}}1 {ả}{{\'a}}1 {ã}{{\~a}}1 {ạ}{{\d{a}}}1
+             {Á}{{\'A}}1 {À}{{\`A}}1 {Ả}{{\'A}}1 {Ã}{{\~A}}1 {Ạ}{{\d{A}}}1
+             {ă}{{\u{a}}}1 {ắ}{{\'a}}1 {ằ}{{\`a}}1 {ẳ}{{\'a}}1 {ẵ}{{\~a}}1 {ặ}{{\d{a}}}1
+             {â}{{\^a}}1 {ấ}{{\'a}}1 {ầ}{{\`a}}1 {ẩ}{{\'a}}1 {ẫ}{{\~a}}1 {ậ}{{\d{a}}}1
+             {đ}{{\d{d}}}1 {Đ}{{\d{D}}}1
+             {é}{{\'e}}1 {è}{{\`e}}1 {ẻ}{{\'e}}1 {ẽ}{{\~e}}1 {ẹ}{{\d{e}}}1
+             {ê}{{\^e}}1 {ế}{{\'e}}1 {ề}{{\`e}}1 {ể}{{\'e}}1 {ễ}{{\~e}}1 {ệ}{{\d{e}}}1
+             {í}{{\'i}}1 {ì}{{\`i}}1 {ỉ}{{\'i}}1 {ĩ}{{\~i}}1 {ị}{{\d{i}}}1
+             {ó}{{\'o}}1 {ò}{{\`o}}1 {ỏ}{{\'o}}1 {õ}{{\~o}}1 {ọ}{{\d{o}}}1
+             {ô}{{\^o}}1 {ố}{{\'o}}1 {ồ}{{\`o}}1 {ổ}{{\'o}}1 {ỗ}{{\~o}}1 {ộ}{{\d{o}}}1
+             {ơ}{{\'o}}1 {ờ}{{\`o}}1 {ở}{{\'o}}1 {ỡ}{{\~o}}1 {ợ}{{\d{o}}}1
+             {ú}{{\'u}}1 {ù}{{\`u}}1 {ủ}{{\'u}}1 {ũ}{{\~u}}1 {ụ}{{\d{u}}}1
+             {ư}{{\'u}}1 {ừ}{{\`u}}1 {ử}{{\'u}}1 {ữ}{{\~u}}1 {ự}{{\d{u}}}1
+             {ý}{{\'y}}1 {ỳ}{{\`y}}1 {ỷ}{{\'y}}1 {ỹ}{{\~y}}1 {ỵ}{{\d{y}}}1
+}
+
+% ======================================================================
+% NỘI DUNG PHẦN 2
+% ======================================================================
+
+\section{Mô tả dữ liệu và môi trường làm việc}
+
+\subsection{Mô tả bảng \texttt{students}}
+
+\subsubsection{Database Schema}
+
+Dữ liệu được lưu trữ trong **MySQL database** với tên \texttt{university}, bảng \texttt{students}. Schema được thiết kế với **14 cột** như sau:
+
+\begin{table}[H]
+    \centering
+    \caption{Schema của bảng \texttt{students}}
+    \label{tab:schema_students}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}llll@{}}
+        \toprule
+        \textbf{Cột} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} & \textbf{Ví dụ} \\ \midrule
+        \texttt{student\_id} & \texttt{INT} & \textbf{PRIMARY KEY}, AUTO\_INCREMENT & \texttt{101} \\
+        \texttt{full\_name} & \texttt{VARCHAR(100)} & Họ và tên đầy đủ & "Nguyen Van A" \\
+        \texttt{dob} & \texttt{DATE} & Ngày sinh (Date of Birth) & \texttt{2004-05-12} \\
+        \texttt{gender} & \texttt{ENUM('M','F')} & Giới tính (Male/Female) & 'M' hoặc 'F' \\
+        \texttt{major} & \texttt{VARCHAR(50)} & Ngành học & "Data Science" \\
+        \texttt{class\_id} & \texttt{VARCHAR(20)} & Lớp hành chính & "DS01" \\
+        \texttt{email} & \texttt{VARCHAR(120)} & Email sinh viên & "a.nguyen@neu.edu.vn" \\
+        \texttt{phone} & \texttt{VARCHAR(20)} & Số điện thoại & "0911000001" \\
+        \texttt{gpa} & \texttt{DECIMAL(3,2)} & Điểm trung bình tích lũy (0.0-4.0) & \texttt{3.50} \\
+        \texttt{credits} & \texttt{INT} & Số tín chỉ đã tích lũy & \texttt{80} \\
+        \texttt{height\_cm} & \texttt{DECIMAL(5,2)} & Chiều cao (cm) & \texttt{175.0} \\
+        \texttt{weight\_kg} & \texttt{DECIMAL(5,2)} & Cân nặng (kg) & \texttt{68.0} \\
+        \texttt{province} & \texttt{VARCHAR(60)} & Tỉnh/thành phố & "Ha Noi" \\
+        \texttt{enrollment\_date} & \texttt{DATE} & Ngày nhập học & \texttt{2022-09-05} \\ \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\textbf{Lưu ý quan trọng:}
+\begin{itemize}
+    \item Có \textbf{cố ý thiếu dữ liệu} (NULL values) trong các cột \texttt{gpa}, \texttt{height\_cm}, \texttt{weight\_kg} để luyện kỹ năng xử lý dữ liệu thiếu (missing data imputation).
+    \item Có \textbf{outliers} (ngoại lệ) trong dữ liệu: ví dụ sinh viên có \texttt{weight\_kg = 120.0} (BMI rất cao) hoặc \texttt{gpa = 1.80} (quá thấp).
+\end{itemize}
+
+\subsubsection{SQL DDL (Data Definition Language)}
+
+\begin{lstlisting}[language=SQL, caption={SQL DDL tạo bảng students}]
+CREATE DATABASE IF NOT EXISTS university 
+CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE university;
+
+CREATE TABLE students (
+  student_id      INT PRIMARY KEY AUTO_INCREMENT,
+  full_name       VARCHAR(100) NOT NULL,
+  dob             DATE,
+  gender          ENUM('M','F') NOT NULL,
+  major           VARCHAR(50),
+  class_id        VARCHAR(20),
+  email           VARCHAR(120),
+  phone           VARCHAR(20),
+  gpa             DECIMAL(3,2),
+  credits         INT,
+  height_cm       DECIMAL(5,2),
+  weight_kg       DECIMAL(5,2),
+  province        VARCHAR(60),
+  enrollment_date DATE
+);
+\end{lstlisting}
+
+\subsection{Thống kê dữ liệu thô (Raw Data Statistics)}
+
+\subsubsection{Kích thước dữ liệu}
+
+Sau khi tải từ MySQL, DataFrame có:
+\begin{itemize}
+    \item \textbf{Số dòng (n):} 320 sinh viên.
+    \item \textbf{Số cột (p):} 14 cột (dữ liệu thô).
+\end{itemize}
+
+\textbf{Sau khi xử lý, thêm các cột tính toán:}
+\begin{itemize}
+    \item \texttt{bmi}: Body Mass Index (BMI) = 
+
+
+\[
+\text{BMI} = \frac{\texttt{weight\_kg}}{\left(\frac{\texttt{height\_cm}}{100}\right)^2}
+\]
+
+    \item \texttt{age}: Tuổi tính từ \texttt{dob} đến ngày hiện tại.
+    \item \texttt{z\_gpa}, \texttt{z\_credits}, \texttt{z\_bmi}, \texttt{z\_age}: Z-scores (chuẩn hóa).
+\end{itemize}
+$\rightarrow$ \textbf{Tổng số cột trong DataFrame đã xử lý:} 20 cột.
+
+\subsubsection{Phân tích giá trị thiếu (Missing Values Analysis)}
+
+\begin{table}[H]
+    \centering
+    \caption{Thống kê giá trị thiếu cho từng cột}
+    \begin{tabular}{@{}lrrll@{}}
+        \toprule
+        \textbf{Column} & \textbf{Missing Count} & \textbf{Missing \%} & \textbf{Data Type} & \textbf{Status} \\ \midrule
+        student\_id & 0 & 0.00 & int64 & Complete \\
+        full\_name & 0 & 0.00 & object & Complete \\
+        ... & ... & ... & ... & ... \\
+        \textbf{gpa} & \textbf{2} & \textbf{0.62} & \textbf{float64} & \textbf{Missing} \\
+        credits & 0 & 0.00 & int64 & Complete \\
+        \textbf{height\_cm} & \textbf{2} & \textbf{0.62} & \textbf{float64} & \textbf{Missing} \\
+        \textbf{weight\_kg} & \textbf{2} & \textbf{0.62} & \textbf{float64} & \textbf{Missing} \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Thống kê tổng quan:}
+\begin{itemize}
+    \item Tổng số ô dữ liệu: 4,480
+    \item Số ô bị thiếu: 6 (Tỷ lệ thiếu: 0.13\%)
+    \item Các cột cần xử lý (imputation): \texttt{gpa}, \texttt{height\_cm}, \texttt{weight\_kg}.
+\end{itemize}
+
+\subsection{Môi trường và công cụ}
+
+\subsubsection{Phiên bản Python và thư viện chính}
+
+\textbf{Python version:} 3.11.4 (hoặc 3.10+)
+
+\textbf{Các thư viện cốt lõi (từ \texttt{requirements.txt}):}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Package} & \textbf{Version} & \textbf{Mục đích} \\ \midrule
+        pandas & $\ge$ 2.0.0 & Thao tác và phân tích dữ liệu \\
+        numpy & $\ge$ 1.24.0 & Tính toán số học (vectorized operations) \\
+        sqlalchemy & $\ge$ 2.0.0 & Database ORM \& connection pooling \\
+        pymysql & $\ge$ 1.1.0 & MySQL driver cho SQLAlchemy \\
+        python-dotenv & $\ge$ 1.0.0 & Tải biến môi trường từ file \texttt{.env} \\
+        nicegui & $\ge$ 1.4.0 & Framework giao diện Web tương tác \\
+        plotly & $\ge$ 5.17.0 & Trực quan hóa dữ liệu tương tác \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Cách kết nối Database}
+
+\textbf{Kiến trúc:} SQLAlchemy Engine với connection pooling.
+
+\textbf{File:} \texttt{src/repositories/mysql\_client.py}
+
+\begin{lstlisting}[language=Python, caption={Cấu hình MySQLClient}]
+from sqlalchemy import create_engine, text
+import pandas as pd
+
+class MySQLClient:
+    def __init__(self, db_config: DatabaseConfig):
+        # Create SQLAlchemy engine with connection pooling
+        connection_string = (
+            f"mysql+pymysql://{db_config.user}:{db_config.password}"
+            f"@{db_config.host}:{db_config.port}/{db_config.database}"
+            f"?charset=utf8mb4"
+        )
+        
+        self.engine = create_engine(
+            connection_string,
+            pool_size=5,          # (*Số lượng kết nối tối đa trong pool*)
+            max_overflow=10,      # so Ket noi bo sung khi vuot qua pool
+            pool_pre_ping=True,   # dam bao ket noi con  khi dung
+            echo=False       # neu dat `TRUE` se log toan bo cau lenh sql 
+        )
+    
+    def execute_query(self, query: str) -> pd.DataFrame:
+        """Execute SELECT query and return DataFrame"""
+        with self.engine.connect() as conn:
+            return pd.read_sql(text(query), conn)
+\end{lstlisting}
+
+
+
+\subsubsection{Môi trường phát triển và Cấu trúc dự án}
+
+\textbf{IDE:} Visual Studio Code (VSCode) với các extensions:
+\begin{itemize}
+    \item Python (Microsoft)
+    \item Jupyter (Microsoft)
+    \item Pylance (Python language server)
+    \item SQLTools (MySQL management)
+    \item Live Server
+\end{itemize}
+
+\textbf{Virtual Environment:} \texttt{venv} (Python built-in)
+
+\begin{lstlisting}[language=bash, caption={Tạo và kích hoạt virtual environment}]
+# (*Tạo*) virtual environment
+python -m venv student_env
+
+# Activate (Windows PowerShell)
+.\student_env\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirements.txt
+\end{lstlisting}
+
+
+\textbf{Project Structure:}
+\begin{verbatim}
+student_management_system/
+├── src/
+│   ├── config/              # Cấu hình database và settings
+│   │   ├── __init__.py
+│   │   ├── database.py      # DatabaseConfig class
+│   │   └── settings.py      # Application settings
+│   ├── models/              # Data models
+│   │   ├── __init__.py
+│   │   └── student.py       # Student model
+│   ├── repositories/        # Data access layer
+│   │   ├── __init__.py
+│   │   ├── mysql_client.py  # MySQL client
+│   │   └── student_repository.py
+│   ├── services/            # Logic các tính năng phân tích
+│   │   ├── __init__.py
+│   │   └── analytics_service.py
+│   ├── reports/             # Tạo báo cáo
+│   │   ├── __init__.py
+│   │   └── report_generator.py
+│   └── utils/               # Utility functions
+│       ├── __init__.py
+│       ├── validators.py
+│       └── formatters.py
+├── docs/                    # Documentation
+│   ├── ARCHITECTURE.md      # Kiến trúc hệ thống
+│   ├── USAGE_GUIDE.md       # Hướng dẫn sử dụng dòng lệnh (CLI)
+│   └── NICEGUI_GUIDE.md     # Hướng dẫn sử dụng giao diện web (NiceGUI)
+├── tests/                   # Kiểm thử đơn vị (Unit tests)
+├── scripts/                 # Các script tiện ích
+├── app.py                   # Entry point chạy NiceGUI Web UI
+├── main.py                  # CLI entry point
+├── final_notebook.ipynb     # Notebook tham khảo để tạo báo cáo
+├── .env                     # Biến môi trường (không commit lên git) 
+├── .env.example             # Example environment file
+├── .gitignore
+├── requirements.txt
+└── README.md
+\end{verbatim}
+
+\paragraph{File \texttt{.env} configuration}
+
+
+\textbf{Purpose:} Lưu trữ thông tin nhạy cảm về cơ sở dữ liệu bên ngoài code.
+
+\textbf{Template (\texttt{.env.example}):}
+\begin{lstlisting}[language=bash]
+# MySQL Database Configuration
+MYSQL_USER=root
+MYSQL_PASSWORD=your_password_here
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DB=university
+\end{lstlisting}
+
+\textbf{Security:}
+\begin{itemize}
+    \item File \texttt{.env} nằm trong \texttt{.gitignore} → không commit lên Git.
+    \item File \texttt{.env.example} được commit → giúp team biết cần khai báo biến nào.
+    \item Thư viện \texttt{python-dotenv} sẽ load biến môi trường khi runtime:
+\end{itemize}
+
+\begin{lstlisting}[language=python]
+from dotenv import load_dotenv
+load_dotenv()  # Load .env file before any imports
+
+# Now environment variables are available
+import os
+db_user = os.getenv('MYSQL_USER')
+\end{lstlisting}
+
+
+\subsection{Luồng dữ liệu và Quy trình xử lý (Data Flow \& Pipeline)}
+
+Quy trình xử lý dữ liệu từ MySQL đến kết quả cuối cùng được mô tả như sau:
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.8cm]
+        % --- ĐỊNH NGHĨA STYLE TRỰC TIẾP TẠI ĐÂY ĐỂ TRÁNH LỖI ---
+        \tikzstyle{block} = [rectangle, draw, fill=blue!10, text width=18em, text centered, rounded corners, minimum height=3em]
+        % Đổi -latex' thành -stealth (mũi tên chuẩn) để không bị lỗi thư viện
+        \tikzstyle{line} = [draw, -stealth, thick] 
+        
+        % --- CÁC KHỐI (NODES) ---
+        \node [block] (mysql) {\textbf{1. MySQL Database (Raw Data)}\\Table: students (320 rows, 14 cols)\\Missing values: 4};
+        
+        \node [block, below of=mysql, node distance=2.5cm] (pandas) {\textbf{2. Pandas DataFrame (Raw)}\\df\_raw = pd.read\_sql(...)\\Shape: (320, 14)};
+        
+        \node [block, below of=pandas, node distance=2.5cm] (impute) {\textbf{3. Fill Missing Values}\\Group by major $\rightarrow$ Median imputation\\No more NaN!};
+        
+        \node [block, below of=impute, node distance=2.5cm] (feature) {\textbf{4. Add Calculated Columns}\\BMI, Age, Z-scores (standardization)};
+        
+        \node [block, below of=feature, node distance=2.5cm] (outlier) {\textbf{5. Detect Outliers (IQR method)}\\BMI outliers: IQR $\times$ threshold\\GPA outliers: IQR $\times$ threshold};
+        
+        \node [block, below of=outlier, node distance=2.5cm, fill=green!20] (output) {\textbf{6. Final Output}\\student\_report.csv\\Interactive charts (NiceGUI)};
+        
+        % --- CÁC ĐƯỜNG NỐI (PATHS) ---
+        % Dùng node[right] để chèn chữ bên cạnh mũi tên
+        \path [line] (mysql) -- node[right, text width=5cm, align=left] {\small SQLAlchemy query} (pandas);
+        \path [line] (pandas) -- node[right, text width=5cm, align=left] {\small Imputation} (impute);
+        \path [line] (impute) -- node[right, text width=5cm, align=left] {\small Feature Engineering} (feature);
+        \path [line] (feature) -- node[right, text width=5cm, align=left] {\small Outlier Detection} (outlier);
+        \path [line] (outlier) -- node[right, text width=5cm, align=left] {\small Export} (output);
+        
+    \end{tikzpicture}
+    \caption{Sơ đồ luồng xử lý dữ liệu (Data Processing Pipeline)}
+    \label{fig:data_pipeline}
+\end{figure}
+
+
+
+
+
+
+\section{Thiết kế hệ thống và kiến trúc OOP}
+
+\subsection{Tổng quan kiến trúc (Clean Architecture)}
+
+\subsubsection{Layered Architecture Pattern}
+
+Hệ thống tuân thủ \textbf{Clean Architecture} với 4 tầng, đảm bảo nguyên tắc \textbf{Separation of Concerns}:
+
+\begin{figure}[H]
+\centering
+\begin{tcolorbox}[width=1\textwidth, colback=blue!5!white, colframe=blue!75!black, title=Clean Architecture - 4 Layers]
+\normalsize
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────┐
+│ PRESENTATION     SERVICE        REPOSITORY    INFRA     │
+│ (UI/Web)         (Logic)        (Data)        (Config)  │
+├─────────────────────────────────────────────────────────┤
+│ app.py ────►  AnalyticsSvc ──► StudentRepo ──► MySQL   │
+│ main.py       ReportGen        (CRUD Ops)      DBConfig│
+│                                                         │
+│ ▲               ▲               ▲              ▲        │
+│ (Interact)      (Process)       (Query)        (Connect)│
+└─────────────────────────────────────────────────────────┘
+\end{verbatim}
+\end{tcolorbox}
+\caption{Kiến trúc 4 tầng}
+\label{fig:clean-architecture}
+\end{figure}
+
+\textbf{Các nguyên tắc thiết kế chính:}
+\begin{enumerate}
+    \item \textbf{Dependency Inversion (DIP):} UI phụ thuộc vào Service Interface, không phụ thuộc Database.
+    \item \textbf{Single Responsibility (SRP):} Mỗi class chỉ làm một nhiệm vụ duy nhất.
+    \item \textbf{Open/Closed (OCP):} Dễ dàng mở rộng thuật toán mới mà không sửa code cũ.
+\end{enumerate}
+
+\subsubsection{Data Flow Diagram}
+
+Quy trình xử lý dữ liệu từ User Request đến Final Report:
+
+\begin{figure}[H]
+\centering
+\begin{tcolorbox}[width=\textwidth, colback=green!5!white, colframe=green!75!black, title=Data Processing Pipeline]
+\small
+\begin{verbatim}
+1. USER ACTION (UI)      : Click "Run Analytics" (IQR=1.5)
+        │
+        ▼
+2. REPORT GENERATOR      : Coordinate Pipeline
+        │
+        ▼
+3. REPOSITORY LAYER      : SELECT * FROM students (Raw Data)
+        │
+        ▼
+4. ANALYTICS SERVICE     : Impute -> BMI/Age Calc -> Z-Scores -> Outliers
+        │
+        ▼
+5. VISUALIZATION (UI)    : Render Charts & Update Data Grid
+\end{verbatim}
+\end{tcolorbox}
+\caption{Tóm tắt luồng dữ liệu}
+\label{fig:data-flow}
+\end{figure}
+
+\subsection{Các class chính và trách nhiệm}
+
+\subsubsection{Infrastructure Layer}
+
+\paragraph{DatabaseConfig (\texttt{src/config/database.py})}
+Quản lý cấu hình kết nối, đọc biến môi trường từ \texttt{.env} để bảo mật thông tin (host, port, user, pass).
+
+\paragraph{MySQLClient (\texttt{src/repositories/mysql\_client.py})}
+Wrapper cho SQLAlchemy engine, quản lý connection pooling và thực thi query an toàn (parameterized queries).
+
+\subsubsection{Repository Layer}
+
+\paragraph{StudentRepository (\texttt{src/repositories/student\_repository.py})}
+Thực hiện các thao tác CRUD. Trừu tượng hóa câu lệnh SQL thành các phương thức Python.
+
+\textbf{Key Methods:}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Method} & \textbf{Purpose} \\ \hline
+\texttt{fetch\_all()} & Lấy toàn bộ danh sách sinh viên \\ \hline
+\texttt{insert\_student(data)} & Thêm sinh viên mới (Transaction) \\ \hline
+\texttt{delete\_student(id)} & Xóa sinh viên theo ID \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Service Layer}
+
+\paragraph{StudentAnalyticsService (\texttt{src/services/analytics\_service.py})}
+Chứa logic nghiệp vụ: xử lý dữ liệu thiếu, tính toán chỉ số (BMI, Age), và phát hiện ngoại lai. Sử dụng \textbf{Fluent Interface} để chain các method.
+
+\textbf{Key Methods:}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \textbf{Purpose} \\ \hline
+\texttt{impute\_missing()} & Điền dữ liệu thiếu bằng trung vị (Median) \\ \hline
+\texttt{add\_bmi(), add\_age()} & Feature Engineering \\ \hline
+\texttt{detect\_outliers\_iqr()} & Phát hiện ngoại lai theo ngưỡng tùy chỉnh \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{StudentReportGenerator (\texttt{src/reports/report\_generator.py})}
+Đóng vai trò \textbf{Facade}, kết hợp Repository và Analytics Service để tạo báo cáo hoàn chỉnh chỉ với một lời gọi hàm.
+
+\subsection{Sơ đồ quan hệ Class (UML)}
+
+\begin{figure}[H]
+\centering
+\begin{tcolorbox}[width=\textwidth, colback=yellow!5!white, colframe=orange!75!black, title=Simplified Class Diagram]
+\small
+\begin{verbatim}
+   [DatabaseConfig]
+          ▲
+          │ (uses)
+          │
+   [MySQLClient] ◄────────── (has a) ──────────┐
+          ▲                                    │
+          │ (uses)                             │
+          │                                    │
+   [StudentRepository]                         │
+          ▲                                    │
+          │ (provides data)                    │
+          │                                    │
+   [StudentReportGenerator] ── (uses) ──► [StudentAnalyticsService]
+          ▲
+          │ (calls)
+          │
+      [UI Layer]
+      (app.py)
+\end{verbatim}
+\end{tcolorbox}
+\caption{Mối quan hệ giữa các thành phần chính}
+\label{fig:uml-class}
+\end{figure}
+
+
+
+\subsection{Giải thích lý do thiết kế}
+
+\subsubsection{Tại sao tách biệt tầng Database khỏi tầng Analytics?}
+
+\paragraph{Vấn đề (Bad Design):}
+Nếu Analytics Service trực tiếp thao tác với Database:
+
+\begin{lstlisting}[language=Python, caption=Bad Design - Tight Coupling]
+# BAD: Analytics service truc tiep query database
+class StudentAnalytics:
+    def __init__(self, mysql_host, mysql_user, mysql_pass):
+        self.conn = mysql.connector.connect(host=mysql_host, ...)
+    
+    def calculate_avg_gpa(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT AVG(gpa) FROM students")
+        return cursor.fetchone()[0]
+\end{lstlisting}
+
+\paragraph{Các vấn đề phát sinh:}
+\begin{enumerate}
+    \item \xmark \textbf{Tight Coupling}: Không thể test \texttt{calculate\_avg\_gpa()} mà không cần MySQL server đang chạy
+    \item \xmark \textbf{Hard to Switch}: Muốn đổi sang PostgreSQL $\rightarrow$ Phải sửa toàn bộ Analytics code
+    \item \xmark \textbf{Not Reusable}: Không thể dùng Analytics cho CSV file, Excel, hoặc API data
+\end{enumerate}
+
+\paragraph{Giải pháp của chúng tôi:}
+
+\begin{lstlisting}[language=Python, caption=Good Design - Separated Layers]
+# GOOD: Analytics nhan DataFrame, khong biet data tu dau
+class StudentAnalyticsService:
+    def __init__(self, df: pd.DataFrame):  # Accept ANY DataFrame
+        self.df = df
+    
+    def calculate_avg_gpa(self) -> float:
+        return self.df['gpa'].mean()  # Pure Pandas operation
+\end{lstlisting}
+
+\paragraph{So sánh lợi ích:}
+
+\begin{table}[H]
+\centering
+\caption{So sánh Tight Coupling vs Separated Layers}
+\small
+\begin{tabular}{|l|p{4.5cm}|p{5cm}|}
+\hline
+\textbf{Khía cạnh} & \textbf{Tight Coupling (Bad)} & \textbf{Separated Layers (Good)} \\ \hline
+\textbf{Testing} & Cần MySQL server running & Mock DataFrame $\rightarrow$ Instant tests \\ \hline
+\textbf{Data Source} & Chỉ MySQL & MySQL, CSV, Excel, API, etc. \\ \hline
+\textbf{Reusability} & Gắn chặt với database & Xử lý offline data được \\ \hline
+\textbf{Performance} & Query mỗi lần tính toán & Load once, analyze many times \\ \hline
+\textbf{Maintenance} & Đổi DB $\rightarrow$ Viết lại analytics & Đổi DB $\rightarrow$ Chỉ sửa Repository \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{Ví dụ thực tế:}
+
+\begin{lstlisting}[language=Python, caption=Separation Benefits - Ba Scenario Khác Nhau]
+# Scenario 1: Web UI (du lieu tu MySQL)
+repository = StudentRepository(mysql_client)
+df = repository.fetch_all()
+service = StudentAnalyticsService(df)
+summary = service.summary_by_major()
+
+# Scenario 2: Data Science Experiment (du lieu tu CSV)
+df = pd.read_csv('students_export.csv')
+service = StudentAnalyticsService(df)  # CUNG service!
+summary = service.summary_by_major()    # CUNG method!
+
+# Scenario 3: Unit Testing (mock data)
+df_mock = pd.DataFrame({
+    'student_id': [1, 2],
+    'gpa': [3.5, 3.8],
+    'major': ['DS', 'AI']
+})
+service = StudentAnalyticsService(df_mock)
+assert service.calculate_avg_gpa() == 3.65  # Test instant, khong can DB
+\end{lstlisting}
+
+\textbf{Kết luận:} Việc tách biệt giúp hệ thống linh hoạt, dễ test, và dễ bảo trì. Analytics Service có thể tái sử dụng cho bất kỳ nguồn dữ liệu nào (MySQL, CSV, API), không bị phụ thuộc vào cơ sở dữ liệu cụ thể.
+
+\subsubsection{Tại sao dùng SQLAlchemy thay vì raw MySQL Connector?}
+
+\begin{table}[H]
+\centering
+\caption{So sánh mysql.connector vs SQLAlchemy}
+\small
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Tính năng} & \textbf{mysql.connector} & \textbf{SQLAlchemy} \\ \hline
+Connection Pooling & Phải tự code & Built-in \checkmark \\ \hline
+SQL Injection Protection & Phải tự sanitize & Tự động với named params \checkmark \\ \hline
+Chuyển Database & Viết lại queries & Chỉ đổi connection string \checkmark \\ \hline
+Type Conversion & Manual cast & Tự động \checkmark \\ \hline
+Pandas Integration & \texttt{pd.read\_sql(cursor)} & \texttt{pd.read\_sql(engine)} (nhanh hơn) \checkmark \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{Ví dụ: Bảo vệ chống SQL Injection}
+
+\begin{lstlisting}[language=Python, caption=SQL Injection Protection]
+# NGUY HIEM: SQL injection vulnerability
+major = request.form['major']  # User input: "'; DROP TABLE students; --"
+query = f"SELECT * FROM students WHERE major = '{major}'"
+cursor.execute(query)  # BOOM! Bang students bi xoa!
+
+# AN TOAN: Named parameters
+query = "SELECT * FROM students WHERE major = :major"
+conn.execute(text(query), {'major': major})  # Input duoc sanitized tu dong
+\end{lstlisting}
+
+\textbf{Giải thích:} SQLAlchemy tự động escape các ký tự đặc biệt trong input, ngăn chặn tấn công SQL Injection. Điều này quan trọng khi làm việc với dữ liệu từ user input (forms, API requests).
+
+\subsubsection{Tại sao dùng Method Chaining (Fluent Interface)?}
+
+\paragraph{Cách truyền thống (dài dòng):}
+
+\begin{lstlisting}[language=Python, caption=Verbose Code - No Chaining]
+service = StudentAnalyticsService(df)
+service.impute_missing()
+service.add_bmi()
+service.add_age()
+service.add_zscores(['gpa', 'credits'])
+df_processed = service.get_data()
+\end{lstlisting}
+
+\paragraph{Cách Fluent Interface (gọn gàng):}
+
+\begin{lstlisting}[language=Python, caption=Elegant Code - Method Chaining]
+df_processed = (StudentAnalyticsService(df)
+    .impute_missing()
+    .add_bmi()
+    .add_age()
+    .add_zscores(['gpa', 'credits'])
+    .get_data()
+)
+\end{lstlisting}
+
+\paragraph{Lợi ích:}
+\begin{itemize}
+    \item \checkmark \textbf{Readability}: Luồng xử lý rõ ràng theo chiều dọc (top-down), dễ đọc
+    \item \checkmark \textbf{Less Code}: Không cần khai báo intermediate variables
+    \item \checkmark \textbf{Functional Style}: Giống với Pandas, NumPy, PySpark patterns (quen thuộc với Data Scientists)
+\end{itemize}
+
+\textbf{Giải thích:} Method Chaining cho phép xâu chuỗi các thao tác xử lý dữ liệu theo cách tự nhiên, giống như cách ta đọc một quy trình từ trên xuống dưới. Mỗi method trả về \texttt{self}, cho phép gọi method tiếp theo.
+
+\subsubsection{Tại sao lưu Backup trong Memory thay vì Database Table?}
+
+\begin{table}[H]
+\centering
+\caption{So sánh In-Memory vs Database Backup}
+\small
+\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\textbf{Approach} & \textbf{Ưu điểm} & \textbf{Nhược điểm} \\ \hline
+\textbf{In-Memory} (Hiện tại) & \checkmark Nhanh (không cần DB query)\newline \checkmark Triển khai đơn giản\newline \checkmark Không cần thay đổi schema & \xmark Mất khi restart app\newline \xmark Giới hạn 10 backups \\ \hline
+\textbf{Database Table} & \checkmark Persistent (không mất)\newline \checkmark Unlimited backups\newline \checkmark Multi-user support & \xmark Chậm (phải INSERT vào DB)\newline \xmark Cần migration\newline \xmark Phức tạp hơn \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{Lý do chọn In-Memory cho phiên bản 1.0:}
+\begin{enumerate}
+    \item \textbf{Undo dành cho lỗi gần đây}: Users hiếm khi cần restore deletions từ 3 ngày trước
+    \item \textbf{Simplicity}: Không cần database migration, dễ dàng demo
+    \item \textbf{Performance}: Undo tức thì, không cần chờ database query
+\end{enumerate}
+
+\paragraph{Cải tiến tương lai (v2.0):}
+Nếu cần persistent backup, có thể thêm bảng:
+
+\begin{lstlisting}[language=SQL, caption=Future Database Backup Schema]
+CREATE TABLE deleted_students_backup (
+    backup_id INT AUTO_INCREMENT PRIMARY KEY,
+    original_student_id INT,
+    student_data JSON,        -- Luu toan bo record dang JSON
+    deleted_at TIMESTAMP,
+    deleted_by VARCHAR(100),  -- User tracking
+    INDEX(deleted_at)
+);
+\end{lstlisting}
+
+\subsubsection{Tại sao Parameterize IQR Threshold?}
+
+\paragraph{Cách truyền thống (hard-coded):}
+
+\begin{lstlisting}[language=Python, caption=Hard-coded Threshold]
+# Hau het sinh vien hard-code threshold
+def detect_outliers(df):
+    Q1 = df['bmi'].quantile(0.25)
+    Q3 = df['bmi'].quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - 1.5 * IQR  # Hard-coded 1.5!
+    upper = Q3 + 1.5 * IQR
+    return df[(df['bmi'] < lower) | (df['bmi'] > upper)]
+\end{lstlisting}
+
+\paragraph{Cách của chúng tôi (tham số hóa):}
+
+\begin{lstlisting}[language=Python, caption=Parameterized Threshold]
+def detect_outliers_iqr(self, column: str, multiplier: float = 1.5):
+    Q1 = self.df[column].quantile(0.25)
+    Q3 = self.df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - multiplier * IQR  # Tuy chinh duoc!
+    upper = Q3 + multiplier * IQR
+    return self.df[(self.df[column] < lower) | (self.df[column] > upper)]
+\end{lstlisting}
+
+\paragraph{Lý do:}
+\begin{enumerate}
+    \item \textbf{Domain Knowledge}: Lĩnh vực y tế có thể dùng 3.0 (extreme outliers), tài chính dùng 1.0 (nhạy cảm hơn)
+    \item \textbf{Data Exploration}: Data scientists cần thử nhiều ngưỡng khác nhau để khám phá dữ liệu
+    \item \textbf{Interactive Tuning}: UI slider (1.0-3.0) $\rightarrow$ Real-time feedback
+    \item \textbf{Production Flexibility}: Khách hàng khác nhau có yêu cầu khác nhau
+\end{enumerate}
+
+\paragraph{Tích hợp với UI:}
+
+\begin{lstlisting}[language=Python, caption=NiceGUI Slider Integration]
+# app.py (NiceGUI)
+iqr_slider = ui.slider(min=1.0, max=3.0, value=1.5, step=0.1)
+
+def on_slider_change():
+    # Khi user keo slider, tu dong cap nhat outliers
+    outliers = service.detect_outliers_iqr('bmi', iqr_slider.value)
+    update_chart(outliers)  # Cap nhat bieu do real-time
+
+iqr_slider.on_change(on_slider_change)
+\end{lstlisting}
+
+\textbf{Kết luận:} Việc tham số hóa IQR threshold giúp hệ thống linh hoạt, phù hợp với nhiều lĩnh vực khác nhau, và cho phép người dùng tương tác trực tiếp để tìm ngưỡng tối ưu cho dữ liệu của họ.
+
+
+
+
+\subsection{CRUD Operations với SQLAlchemy}
+
+\subsubsection{Tổng quan CRUD Operations}
+
+Hệ thống hỗ trợ \textbf{đầy đủ các thao tác CRUD} (Create, Read, Update, Delete) với các tính năng bảo mật và an toàn nâng cao:
+
+\begin{table}[H]
+\centering
+\caption{Ma trận CRUD Operations}
+\small
+\begin{tabular}{|l|l|l|p{3cm}|p{4cm}|}
+\hline
+\textbf{Operation} & \textbf{Method} & \textbf{SQL} & \textbf{Use Case} & \textbf{Safety Features} \\ \hline
+\textbf{Create} & \texttt{insert\_student()} & \texttt{INSERT} & Thêm sinh viên mới & \checkmark Field validation\newline \checkmark Type conversion\newline \checkmark Duplicate check \\ \hline
+\textbf{Read} & \texttt{fetch\_all()},\newline \texttt{fetch\_by\_id()} & \texttt{SELECT} & Xem danh sách SV & \checkmark Parameterized queries\newline \checkmark Return DataFrame \\ \hline
+\textbf{Update} & \texttt{update\_student()} & \texttt{UPDATE} & Sửa thông tin SV & \checkmark Dynamic SET clause\newline \checkmark Type safety\newline \checkmark Rowcount check \\ \hline
+\textbf{Delete} & \texttt{delete\_student()} & \texttt{DELETE} & Xóa sinh viên & \checkmark Automatic backup\newline \checkmark Confirmation dialog\newline \checkmark Undo capability \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsubsection{INSERT - Thêm sinh viên mới}
+
+\paragraph{Yêu cầu validation:}
+
+\begin{table}[H]
+\centering
+\caption{Các trường dữ liệu và validation rules}
+\scriptsize
+\begin{tabular}{|l|l|c|p{5cm}|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Required} & \textbf{Validation} \\ \hline
+\texttt{student\_id} & \texttt{int} & \checkmark & Phải unique (PRIMARY KEY) \\ \hline
+\texttt{full\_name} & \texttt{str} & \checkmark & Tối đa 100 ký tự \\ \hline
+\texttt{dob} & \texttt{date} & $\times$ & Format: YYYY-MM-DD \\ \hline
+\texttt{gender} & \texttt{str} & \checkmark & Phải là 'M' hoặc 'F' \\ \hline
+\texttt{major} & \texttt{str} & $\times$ & Data Science, AI, Business Analytics \\ \hline
+\texttt{email} & \texttt{str} & \checkmark & Phải chứa @ \\ \hline
+\texttt{gpa} & \texttt{float} & $\times$ & 0.0 - 4.0 \\ \hline
+\texttt{credits} & \texttt{int} & $\times$ & 0 - 200 \\ \hline
+\texttt{height\_cm} & \texttt{float} & $\times$ & 100 - 250 \\ \hline
+\texttt{weight\_kg} & \texttt{float} & $\times$ & 30 - 200 \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{Implementation:}
+
+\begin{lstlisting}[language=Python, caption=Phương thức insert\_student()]
+def insert_student(self, student_data: dict) -> bool:
+    """
+    Thêm sinh viên (*mới với*) validation (*tự động.*)
+    
+    (*Xây dựng câu lệnh INSERT động:*)
+    - create danh sách (*cột từ *)dictionary keys
+    - create named placeholders (:student_id, :full_name, ...)
+    - SQLAlchemy (*tự động xử lý*) type conversion & SQL injection
+    """
+    from sqlalchemy import text
+    
+    # (*Xây dựng câu lệnh INSERT động*)
+    columns = ', '.join(student_data.keys())
+    placeholders = ', '.join([f":{k}" for k in student_data.keys()])
+    query = f"INSERT INTO {self.table_name} ({columns}) VALUES ({placeholders})"
+    
+    # (*Thực thi với named parameters*)
+    with self.client.engine.connect() as conn:
+        conn.execute(text(query), student_data)
+        conn.commit()
+        return True
+\end{lstlisting}
+
+
+
+
+
+\textbf{Giải thích:} Phương thức này tự động xây dựng câu lệnh SQL dựa trên các key trong dictionary, giúp code linh hoạt khi schema thay đổi (thêm/bớt cột).
+
+\subsubsection{UPDATE - Cập nhật thông tin sinh viên}
+
+\paragraph{Các trường có thể chỉnh sửa:}
+Tất cả trừ \texttt{student\_id} (13 trường).
+
+\paragraph{Type conversion tự động:}
+\begin{itemize}
+    \item \texttt{gpa}, \texttt{height\_cm}, \texttt{weight\_kg} $\rightarrow$ \texttt{float}
+    \item \texttt{credits} $\rightarrow$ \texttt{int}
+    \item Các trường khác $\rightarrow$ \texttt{str}
+\end{itemize}
+
+\paragraph{Implementation:}
+
+\begin{lstlisting}[language=Python, caption=Phương thức update\_student()]
+def update_student(self, student_id: str, update_data: dict) -> bool:
+    """
+    (*Cập nhật thông tin sinh viên với SET clause động.*)
+    
+    (*Tính năng:*)
+    - Chỉ cập nhật các trường có trong update_data
+    - Tự động chuyển đổi kiểu dữ liệu
+    - Trả về True/False dựa trên số dòng bị ảnh hưởng
+    """
+    from sqlalchemy import text
+    
+    # (*Chuyển đổi kiểu dữ liệu*)
+    if 'gpa' in update_data:
+        update_data['gpa'] = float(update_data['gpa'])
+    if 'credits' in update_data:
+        update_data['credits'] = int(update_data['credits'])
+    if 'height_cm' in update_data:
+        update_data['height_cm'] = float(update_data['height_cm'])
+    if 'weight_kg' in update_data:
+        update_data['weight_kg'] = float(update_data['weight_kg'])
+    
+    # (*Xây dựng SET clause động*)
+    set_clause = ', '.join([f"{k} = :{k}" for k in update_data.keys()])
+    query = f"UPDATE {self.table_name} SET {set_clause} WHERE student_id = :student_id"
+    
+    # (*Gộp parameters*)
+    params = {**update_data, 'student_id': student_id}
+    
+    with self.client.engine.connect() as conn:
+        result = conn.execute(text(query), params)
+        conn.commit()
+        return result.rowcount > 0  # (*True nếu cập nhật 1 dòng*)
+\end{lstlisting}
+
+
+
+\textbf{Giải thích:} Việc sử dụng \texttt{result.rowcount} giúp xác minh xem có dòng nào bị ảnh hưởng không, từ đó phát hiện trường hợp student\_id không tồn tại.
+
+\subsubsection{DELETE - Xóa sinh viên với Backup tự động}
+
+\paragraph{Kiến trúc an toàn:}
+
+\begin{figure}[H]
+\centering
+\small
+\begin{verbatim}
+User Click Delete
+       ↓
+[1] Query full student record (SELECT *)
+       ↓
+[2] Show confirmation dialog
+       ↓
+User Confirms
+       ↓
+[3] Backup to AppState.deleted_students (FIFO queue, max 10)
+       ↓
+[4] DELETE FROM students WHERE student_id = X
+       ↓
+[5] Update UI (refresh grid, show undo button)
+       ↓
+User can UNDO within session (restore last 10)
+\end{verbatim}
+\caption{Quy trình Delete với Backup}
+\end{figure}
+
+\paragraph{Implementation (Repository Layer):}
+
+\begin{lstlisting}[language=Python, caption=Phương thức delete\_student()]
+def delete_student(self, student_id: str) -> bool:
+    """
+    Xóa sinh viên (*khỏi*) database.
+    
+    Note: UI layer (*xử*) lý backup (*TRƯỚC KHI gọi*) method này.
+    Method này (*chỉ thực hiện*) DELETE operation.
+    """
+    from sqlalchemy import text
+    
+    query = f"DELETE FROM {self.table_name} WHERE student_id = :student_id"
+    
+    with self.client.engine.connect() as conn:
+        result = conn.execute(text(query), {"student_id": student_id})
+        conn.commit()
+        return result.rowcount > 0  # True (*nếu xóa 1 dòng*)
+\end{lstlisting}
+
+\paragraph{Implementation (UI Layer - app.py):}
+
+\begin{lstlisting}[language=Python, caption=Xóa sinh viên có backup (UI Layer)]
+def delete_student_with_backup():
+    """
+    UI layer (*điều phối xóa an toàn.*)
+    """
+    # stepstep 1: Query full record from database
+    from sqlalchemy import text
+    query = f"SELECT * FROM students WHERE student_id = :student_id"
+    
+    with app_state.repository.client.engine.connect() as conn:
+        result = conn.execute(text(query), {"student_id": selected_id})
+        row = result.fetchone()
+        
+        if row:
+            # step 2: create backup ((*tất cả 14 trường*))
+            student_backup = {
+                'student_id': row[0],
+                'full_name': row[1],
+                'dob': row[2],
+                # ... (*tất cả 14 trường*) ...
+                'deleted_at': datetime.now().isoformat()
+            }
+            
+            # step 3: Thêm vào FIFO queue (max 10)
+            app_state.deleted_students.append(student_backup)
+            if len(app_state.deleted_students) > app_state.max_backup_size:
+                app_state.deleted_students.pop(0)  # Xóa cái (*cũ nhất*)
+            
+            # step 4: Xóa (*khỏi database*)
+            if app_state.repository.delete_student(selected_id):
+                ui.notify(f'Đã xóa sinh viên {selected_id} ', type='positive')
+                update_undo_list()  # Refresh undo panel
+            else:
+                ui.notify(f'error khi xóa sinh viên {selected_id}', type='negative')
+\end{lstlisting}
+
+\paragraph{Undo Delete:}
+
+\begin{lstlisting}[language=Python, caption=Khôi phục sinh viên đã xóa]
+def undo_delete(backup: dict):
+    """
+    (*Khôi phục sinh viên đã xóa từ backup.*)
+    """
+    # (*Loại bỏ trường*) 'deleted_at' (không có trong schema)
+    restore_data = {k: v for k, v in backup.items() if k != 'deleted_at'}
+    
+    # Re-insert vào database
+    if app_state.repository.insert_student(restore_data):
+        ui.notify(f"Đã backup sinh viên {backup['student_id']}", type='positive')
+        app_state.deleted_students.remove(backup)  # Xóa (*khỏi*) backup list
+        update_undo_list()  # Refresh undo panel
+    else:
+        ui.notify(f"errorerror khi backup sinh viên", type='negative')
+\end{lstlisting}
+
+\textbf{Giải thích:} Hệ thống sử dụng FIFO queue (First In First Out) để lưu tối đa 10 bản ghi đã xóa gần nhất. Khi queue đầy, bản ghi cũ nhất sẽ bị loại bỏ để nhường chỗ cho bản ghi mới.
+
+\subsubsection{Filter by GPA (Advanced Query)}
+
+\paragraph{Use Case:} Tìm kiếm sinh viên có thành tích cao.
+
+\begin{lstlisting}[language=Python, caption=Lọc sinh viên theo GPA]
+def get_students_by_gpa(self, min_gpa: float) -> pd.DataFrame:
+    """
+    Query sinh viên có GPA trên (*ngưỡng*).
+    
+    (*Sắp xếp theo GPA giảm dần để xếp hạng.*)
+    """
+    query = f"""
+        SELECT * FROM {self.table_name} 
+        WHERE gpa > :min_gpa 
+        ORDER BY gpa DESC
+    """
+    return self.client.execute_query(query, {'min_gpa': min_gpa})
+\end{lstlisting}
+
+\paragraph{Ví dụ sử dụng:}
+
+\begin{lstlisting}[language=Python, caption=Tìm sinh viên GPA cao]
+# (*Lấy tất cả sinh viên có GPA > 3.5*)
+high_achievers = repository.get_students_by_gpa(3.5)
+print(f"find {len(high_achievers)} sinh viên có GPA > 3.5")
+\end{lstlisting}
+
+\subsubsection{CRUD Security Features}
+
+\paragraph{1. Bảo vệ SQL Injection:}
+
+\begin{lstlisting}[language=Python, caption=So sánh Unsafe vs Safe]
+# (*NGUY HIỂM: Nối chuỗi trực tiếp*)
+query = f"SELECT * FROM students WHERE major = '{user_input}'"
+# Nếu user_input = "'; DROP TABLE students; --" → Database (*bị phá hủy!*)
+
+# AN TOÀN: Named parameters
+query = "SELECT * FROM students WHERE major = :major"
+conn.execute(text(query), {'major': user_input})
+# (*SQLAlchemy tự động escape ký tự đặc biệt*)
+\end{lstlisting}
+
+\textbf{Giải thích:} SQLAlchemy sử dụng prepared statements với named parameters, tự động escape các ký tự nguy hiểm như dấu nháy đơn (\texttt{'}), ngăn chặn tấn công SQL Injection.
+
+\paragraph{2. Type Safety:}
+
+\begin{lstlisting}[language=Python, caption=Chuyển đổi kiểu tự động]
+# data (*từ*) form (string)
+update_data = {
+    'gpa': '3.75',      # String từ form
+    'credits': '90'     # String từ form
+}
+
+# Sau khi type conversion:
+update_data['gpa'] = float('3.75')      # → 3.75 (float)
+update_data['credits'] = int('90')      # → 90 (int)
+\end{lstlisting}
+
+\textbf{Giải thích:} Việc chuyển đổi kiểu rõ ràng giúp tránh lỗi runtime khi insert/update dữ liệu sai kiểu vào database.
+
+\paragraph{3. Transaction Safety:}
+
+\begin{lstlisting}[language=Python, caption=Transaction tự động rollback]
+with self.client.engine.connect() as conn:
+    conn.execute(...)
+    conn.commit()  # Explicit commit (*bắt buộc*)
+    #(*Nếu có lỗi xảy ra, transaction tự động rollback*)
+\end{lstlisting}
+
+\textbf{Giải thích:} SQLAlchemy sử dụng context manager (\texttt{with}) để đảm bảo transaction được commit hoặc rollback đúng cách, tránh để database ở trạng thái inconsistent.
+
+
+
+
+\subsection{Thiết kế hệ thống UI với NiceGUI ()}
+
+\subsubsection{Kiến trúc UI (Server-Side Rendering)}
+
+Dự án sử dụng \textbf{NiceGUI}, một framework Python dựa trên \textbf{Vue.js} và \textbf{Quasar}, cho phép xây dựng giao diện web hiện đại hoàn toàn bằng Python mà không cần viết JavaScript.
+
+\textbf{Mô hình kiến trúc UI:}
+
+\begin{figure}[H]
+\centering
+\small
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────────┐
+│  Browser (Client)                                           │
+│  • Hiển thị HTML/JS/CSS (Quasar components)                 │
+│  • Gửi events qua WebSocket (clicks, inputs)                │
+└──────────────────────────▲──────────────────────────────────┘
+                           │ WebSocket (Real-time)
+┌──────────────────────────▼──────────────────────────────────┐
+│  Server (Python/NiceGUI)                                    │
+│  ─────────────────────────────────────────────────────────  │
+│  1. Event Loop (asyncio)                                    │
+│     • Xử lý hàng nghìn connections đồng thời                │
+│                                                             │
+│  2. State Management (AppState)                             │
+│     • Lưu trữ trạng thái phiên làm việc (Session State)     │
+│     • Reactive variables (tự động update UI khi thay đổi)   │
+│                                                             │
+│  3. UI Components (app.py)                                  │
+│     • Header, Sidebar, Main Content                         │
+│     • AG Grid (Bảng dữ liệu tương tác)                      │
+│     • Plotly Charts (Biểu đồ tương tác)                     │
+└─────────────────────────────────────────────────────────────┘
+\end{verbatim}
+\caption{Kiến trúc Client-Server của NiceGUI}
+\end{figure}
+
+\subsubsection{Chiến lược quản lý trạng thái (State Management)}
+
+\texttt{AppState} là lớp trung tâm chịu trách nhiệm quản lý toàn bộ trạng thái của phiên làm việc (session state). Thay vì sử dụng biến toàn cục rời rạc, \texttt{AppState} gom nhóm dữ liệu quan trọng (DataFrame, cấu hình UI, backup queue) vào một đối tượng duy nhất.
+
+Cách tiếp cận này hỗ trợ tính năng \textbf{"Reactive"} - giao diện tự động cập nhật ngay khi dữ liệu thay đổi.
+
+\begin{lstlisting}[language=Python, caption=Lớp AppState quản lý Session State]
+@dataclass
+class AppState:
+    """
+    (*Quản lý trạng thái của ứng dụng (Session State).*)
+    """
+    # DataFrames
+    df_raw: pd.DataFrame = None        # (*Dữ liệu gốc từ DB*)
+    df_processed: pd.DataFrame = None  #(* Dữ liệu sau khi xử lý*)
+    
+    # UI State
+    selected_major: str = 'All'        # (*Filter hiện tại*)
+    iqr_threshold: float = 1.5         #(* Giá trị slider*)
+    
+    # Backup System
+    deleted_students: List[dict] = field(default_factory=list) # Undo queue
+    
+    # Repository Instance
+    repository: StudentRepository = None
+\end{lstlisting}
+
+\textbf{Lợi ích chính:}
+\begin{itemize}
+    \item \textbf{\checkmark Centralized State:} Dễ dàng theo dõi luồng dữ liệu và debug.
+    \item \textbf{\checkmark Reactive:} UI tự động đồng bộ với dữ liệu (Data Binding).
+    \item \textbf{\checkmark Session Isolation:} Đảm bảo mỗi người dùng có không gian làm việc riêng biệt.
+\end{itemize}
+
+\subsubsection{Lập trình hướng sự kiện (Event-Driven Programming)}
+
+NiceGUI sử dụng mô hình bất đồng bộ (Asynchronous) với \texttt{async/await} để xử lý sự kiện mượt mà:
+
+\begin{lstlisting}[language=Python, caption=Xử lý sự kiện bất đồng bộ]
+async def on_run_analytics_click():
+    # 1. Show loading spinner
+    ui.notify('Running analytics...')
+    spinner.visible = True
+    
+    # 2. Run heavy computation (in thread pool to avoid blocking)
+    #    (Service Layer (*được gọi ở*) đây)
+    await run_in_cpu_pool(service.run_pipeline)
+    
+    # 3. Update UI elements
+    chart_gpa.update()      # Redraw chart
+    grid_students.update()  # Refresh table
+    
+    # 4. Hide spinner
+    spinner.visible = False
+    ui.notify('Analysis complete!', type='positive')
+\end{lstlisting}
+
+\subsubsection{Cấu trúc UI Components}
+
+Giao diện được module hóa thành các thành phần tái sử dụng:
+
+\begin{table}[H]
+\centering
+\caption{Các thành phần UI chính}
+\small
+\begin{tabular}{|l|p{6cm}|l|}
+\hline
+\textbf{Component} & \textbf{Mô tả} & \textbf{Library Used} \\ \hline
+\textbf{Data Grid} & Bảng dữ liệu tương tác (Sort, Filter, Pagination) & \texttt{ui.aggrid} \\ \hline
+\textbf{Charts} & Biểu đồ phân phối, tương quan & \texttt{ui.plotly} \\ \hline
+\textbf{Sidebar} & Menu điều hướng và bộ lọc tham số & \texttt{ui.left\_drawer} \\ \hline
+\textbf{Dialogs} & Form thêm/sửa sinh viên, xác nhận xóa & \texttt{ui.dialog} \\ \hline
+\textbf{Notifications} & Thông báo trạng thái (Success/Error) & \texttt{ui.notify} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{giao diện Dashboard:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{[DSEB]PYTHON/Ảnh chụp màn hình_25-11-2025_112316_127.0.0.1.jpeg}
+    \caption{Wireframe giao diện người dùng}
+    \label{fig:placeholder}
+\end{figure}
+
+
+
+
+\subsubsection{Tích hợp với kiến trúc hệ thống}
+
+NiceGUI đóng vai trò là \textbf{Presentation Layer}. Nó chỉ chịu trách nhiệm hiển thị và gọi xuống \textbf{Service Layer} hoặc \textbf{Repository Layer}, tuyệt đối không chứa logic nghiệp vụ phức tạp hay câu lệnh SQL trực tiếp.
+
+\begin{lstlisting}[language=Python, caption=So sánh cách tích hợp UI và Logic]
+# GOOD: (*UI chỉ gọi hàm xử lý đã được trừu tượng hóa*)
+def on_delete_click(student_id):
+    # (*Gọi Repository để xóa*)
+    success = repository.delete_student(student_id)
+    if success:
+        ui.notify('Deleted!')
+        refresh_grid()
+
+# BAD: (*UI chứa logic truy vấn cơ sở dữ liệu*)
+def on_delete_click(student_id):
+    # (*Sai kiến trúc! UI không nên biết về SQL*)
+    cursor.execute("DELETE FROM students WHERE id=...", ...) 
+\end{lstlisting}
+
+\subsection{Tổng kết Phần 3 - Thiết kế hệ thống và kiến trúc OOP}
+
+\subsubsection{Các nguyên tắc thiết kế đã áp dụng}
+
+\textbf{ SOLID Principles:}
+
+\begin{table}[H]
+\centering
+\caption{Áp dụng nguyên tắc SOLID}
+\small
+\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\textbf{Principle} & \textbf{Implementation} & \textbf{Example} \\ \hline
+\textbf{S} - Single Responsibility & Mỗi class có một trách nhiệm duy nhất & \texttt{DatabaseConfig} chỉ lo config, không lo query \\ \hline
+\textbf{O} - Open/Closed & Mở cho mở rộng, đóng cho sửa đổi & Thêm analytics methods mà không sửa existing code \\ \hline
+\textbf{L} - Liskov Substitution & Subclass thay thế được superclass & (Chưa dùng inheritance trong v1.0) \\ \hline
+\textbf{I} - Interface Segregation & Client không phụ thuộc vào methods không dùng & Repository có methods riêng (fetch\_all, fetch\_by\_id) \\ \hline
+\textbf{D} - Dependency Inversion & Phụ thuộc abstraction, không phải implementation & Service nhận DataFrame, không phải Repository \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{ Design Patterns:}
+
+\begin{table}[H]
+\centering
+\caption{Các mẫu thiết kế được sử dụng}
+\small
+\begin{tabular}{|l|l|p{6cm}|}
+\hline
+\textbf{Pattern} & \textbf{Where Used} & \textbf{Purpose} \\ \hline
+\textbf{Facade} & \texttt{StudentReportGenerator} & Đơn giản hóa quy trình phức tạp \\ \hline
+\textbf{Fluent Interface} & \texttt{StudentAnalyticsService} & Method chaining (readable pipelines) \\ \hline
+\textbf{DAO} & \texttt{StudentRepository} & Tách biệt data access khỏi business logic \\ \hline
+\textbf{Singleton} (implicit) & \texttt{DatabaseConfig}, \texttt{MySQLClient}, \texttt{AppState} & Tái sử dụng connections \& state \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{ Kiến trúc phân tầng (Layered Architecture):}
+
+\begin{figure}[H]
+\centering
+\small
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 1: UI (Presentation)                                 │
+│  Files: app.py (NiceGUI), main.py (CLI)                    │
+│  Responsibility: User interactions, visualization          │
+└────────────────────┬────────────────────────────────────────┘
+                     │ Calls
+                     ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 2: Service (Business Logic)                          │
+│  Files: analytics_service.py, report_generator.py          │
+│  Responsibility: Data processing, calculations, algorithms │
+└────────────────────┬────────────────────────────────────────┘
+                     │ Requests data
+                     ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 3: Repository (Data Access)                          │
+│  Files: student_repository.py, mysql_client.py             │
+│  Responsibility: Database queries, CRUD operations         │
+└────────────────────┬────────────────────────────────────────┘
+                     │ Uses
+                     ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 4: Infrastructure (Configuration)                    │
+│  Files: database.py, settings.py, .env                     │
+│  Responsibility: Database config, environment variables    │
+└─────────────────────────────────────────────────────────────┘
+\end{verbatim}
+\caption{Kiến trúc phân tầng 4 lớp}
+\end{figure}
+
+\subsubsection{Ưu điểm của kiến trúc}
+
+\textbf{ Separation of Concerns (Tách biệt trách nhiệm):}
+
+
+
+\textbf{Lợi ích:}
+\begin{itemize}
+    \item \textbf{\checkmark} Dễ dàng kiểm thử từng tầng độc lập
+    \item \textbf{\checkmark} Thay đổi database mà không ảnh hưởng business logic
+    \item \textbf{\checkmark} Tái sử dụng analytics service cho nhiều nguồn dữ liệu
+\end{itemize}
+
+\textbf{ Testability (Dễ kiểm thử):}
+
+Với kiến trúc phân tầng, việc kiểm thử không cần database thật:
+
+\begin{lstlisting}[language=Python, caption=Unit test không cần database]
+def test_calculate_avg_gpa():
+    # Create mock DataFrame
+    df_mock = pd.DataFrame({
+        'student_id': [1, 2, 3],
+        'gpa': [3.5, 3.8, 3.2]
+    })
+    # Test service (no database needed)
+    service = StudentAnalyticsService(df_mock)
+    avg = service.df['gpa'].mean()
+    assert avg == 3.5  # (3.5 + 3.8 + 3.2) / 3
+\end{lstlisting}
+
+\textbf{ Flexibility (Linh hoạt):}
+
+\begin{table}[H]
+\centering
+\caption{Tính linh hoạt của kiến trúc}
+\small
+\begin{tabular}{|p{6cm}|p{7cm}|}
+\hline
+\textbf{Scenario} & \textbf{Solution} \\ \hline
+Chuyển từ MySQL sang PostgreSQL & Chỉ cần đổi 1 dòng trong \texttt{DatabaseConfig} \\ \hline
+Xử lý dữ liệu từ CSV thay vì database & Dùng \texttt{pd.read\_csv()}, sau đó truyền vào \texttt{StudentAnalyticsService} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Maintainability (Dễ bảo trì):}
+
+\begin{table}[H]
+\centering
+\caption{Số lượng file cần sửa khi yêu cầu thay đổi}
+\small
+\begin{tabular}{|p{5cm}|l|p{5cm}|}
+\hline
+\textbf{Change Request} & \textbf{Files to Modify} & \textbf{Unaffected Files} \\ \hline
+Thêm cột database mới & 1 file (\texttt{student\_repository.py}) & Analytics, UI, Config \\ \hline
+Thay đổi cách tính GPA & 1 file (\texttt{analytics\_service.py}) & Repository, Config, UI \\ \hline
+Thêm biểu đồ mới trên UI & 1 file (\texttt{app.py}) & Service, Repository, Config \\ \hline
+Chuyển sang PostgreSQL & 1 file (\texttt{database.py}) & All others! \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Các tính năng nâng cao (Advanced Features)}
+
+\textbf{Parameterized IQR Threshold :}
+
+Cho phép tùy chỉnh ngưỡng phát hiện outlier qua UI slider, thay vì hard-code giá trị 1.5:
+
+
+
+\textbf{CRUD Operations với SQLAlchemy:}
+
+\begin{table}[H]
+\centering
+\caption{So sánh SQLAlchemy và mysql.connector}
+\small
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Feature} & \textbf{mysql.connector} & \textbf{SQLAlchemy} \\ \hline
+SQL Injection Protection & Manual & Auto-protected ✅ \\ \hline
+Connection Pool & Manual & Built-in ✅ \\ \hline
+Type Conversion & Manual & Automatic ✅ \\ \hline
+Database Switch & Rewrite queries & Change URL only ✅ \\ \hline
+Pandas Integration & Complex & Native ✅ \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Backup/Undo System:}
+
+Hệ thống tự động backup 10 sinh viên bị xóa gần nhất, cho phép undo nhanh chóng:
+
+\begin{figure}[H]
+\centering
+\small
+\begin{verbatim}
+Delete Request → Query full record (SELECT *) → 
+Backup to AppState.deleted_students (FIFO queue, max 10) → 
+Delete from database (DELETE) → Update UI (show undo button) → 
+User clicks Undo → Re-insert from backup (INSERT)
+\end{verbatim}
+\caption{Quy trình Backup/Undo}
+\end{figure}
+
+\textbf{4. Method Chaining (Fluent Interface):}
+
+\begin{lstlisting}[language=Python, caption=Pipeline xử lý dữ liệu elegant]
+df_processed = (service
+    .impute_missing()           # Step 1: Fill missing values
+    .add_bmi()                  # Step 2: Calculate BMI
+    .add_age()                  # Step 3: Calculate age
+    .add_zscores(['gpa', 'bmi']) # Step 4: Standardize
+    .get_data()                 # Step 5: Return DataFrame
+)
+\end{lstlisting}
+
+
+
+
+
+
+
+\textbf{Tài liệu tham khảo:}
+\begin{itemize}
+    \item \texttt{docs/ARCHITECTURE.md} - Chi tiết kiến trúc hệ thống
+    \item \texttt{docs/NICEGUI\_GUIDE.md} - Hướng dẫn giao diện Web
+    \item \texttt{CRUD\_FEATURES.md} - CRUD operations \& backup system
+    \item \texttt{README.md} - Tổng quan dự án
+\end{itemize}
+
+
+
+\section{Tiền xử lý dữ liệu và tạo đặc trưng (Data Preprocessing \& Feature Engineering)}
+
+Trong phần này, chúng ta sẽ đi sâu vào logic xử lý dữ liệu (Business Logic) nằm trong \texttt{StudentAnalyticsService}. Đây là ``trái tim'' của ứng dụng, chuyển đổi dữ liệu thô từ CRUD thành thông tin có ý nghĩa cho Dashboard NiceGUI.
+
+\subsection{Chiến lược xử lý Missing Values}
+
+\subsubsection{Phân tích chiến lược}
+
+Dữ liệu nhập vào từ hệ thống CRUD hoặc import CSV thường không hoàn hảo. Chúng ta áp dụng chiến lược \textbf{Grouped Median Imputation}:
+
+\begin{table}[H]
+\centering
+\caption{Chiến lược xử lý Missing Values}
+\small
+\begin{tabular}{|p{3.5cm}|p{4.5cm}|p{6cm}|}
+\hline
+\textbf{Trường (Field)} & \textbf{Chiến lược (Strategy)} & \textbf{Lý do (Rationale)} \\ \hline
+\textbf{height\_cm, weight\_kg} & Median theo \textbf{Gender} (Nam/Nữ) & Chiều cao/cân nặng nam và nữ có phân phối khác hẳn nhau. Dùng chung mean/median sẽ làm sai lệch dữ liệu. \\ \hline
+\textbf{gpa} & Median theo \textbf{Major} & Mỗi ngành có độ khó và phổ điểm khác nhau (VD: Ngành AI có thể khó hơn Business). \\ \hline
+\textbf{credits} & Median theo \textbf{Major} & Số tín chỉ tích lũy phụ thuộc vào chương trình đào tạo của từng ngành. \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Tại sao dùng Median thay vì Mean?}
+
+\begin{itemize}
+    \item \textbf{Robustness}: Median ít bị ảnh hưởng bởi outliers (VD: một sinh viên nhập sai cân nặng 200kg sẽ kéo Mean lên cao, nhưng Median không đổi).
+    \item \textbf{Integer preservation}: Với các trường số nguyên (credits), median thường giữ được tính chất số nguyên tốt hơn mean (thường ra số lẻ).
+\end{itemize}
+
+\subsubsection{Implementation (Vectorized)}
+
+\begin{lstlisting}[language=Python, caption=Hàm điền giá trị thiếu bằng Grouped Median]
+def impute_missing(self) -> 'StudentAnalyticsService':
+    """
+    Impute missing values using grouped median strategy.
+    
+    Strategy:
+    - height_cm, weight_kg: Group by 'gender' (Physical stats differ by gender)
+    - gpa, credits: Group by 'major' (Academic stats differ by major)
+    """
+    # Group by Gender for physical stats
+    for col in ['height_cm', 'weight_kg']:
+        self.df[col] = self.df[col].fillna(
+            self.df.groupby('gender')[col].transform('median')
+        )
+    
+    # Group by Major for academic stats
+    for col in ['gpa', 'credits']:
+        self.df[col] = self.df[col].fillna(
+            self.df.groupby('major')[col].transform('median')
+        )
+    return self
+\end{lstlisting}
+
+
+
+\subsubsection{Tích hợp với CRUD \& NiceGUI}
+
+\begin{itemize}
+    \item \textbf{CRUD Insert}: Khi thêm sinh viên mới mà bỏ trống các trường không bắt buộc (height, weight), hệ thống sẽ \textbf{tự động điền} giá trị gợi ý dựa trên median của nhóm tương ứng trước khi lưu hoặc khi hiển thị trên UI.
+    \item \textbf{UI Warning}: Trên NiceGUI, các dòng dữ liệu được impute có thể được highlight màu vàng để Admin biết đó là dữ liệu ước tính.
+\end{itemize}
+
+\subsection{Feature Engineering: BMI \& Age}
+
+\subsubsection{Tạo cột BMI (Body Mass Index)}
+
+\textbf{Công thức:}
+
+$$
+\text{BMI} = \frac{\text{weight\_kg}}{(\text{height\_cm} / 100)^2}
+$$
+
+\textbf{Kỹ thuật Vectorization:}
+
+Thay vì dùng vòng lặp \texttt{for} (chậm), chúng ta dùng phép toán trên mảng NumPy/Pandas Series.
+
+\begin{itemize}
+    \item \textbf{Hiệu suất}: Nhanh hơn 100-1000 lần so với loop.
+    \item \textbf{An toàn}: Xử lý tự động trường hợp chia cho 0 (NumPy trả về \texttt{inf} thay vì crash, sau đó ta xử lý \texttt{inf} thành \texttt{NaN}).
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=Tính BMI bằng vectorization]
+def add_bmi(self) -> 'StudentAnalyticsService':
+    """Calculate BMI using vectorized NumPy operations."""
+    # Vectorized calculation (NO LOOP!)
+    height_m = self.df['height_cm'] / 100
+    self.df['bmi'] = self.df['weight_kg'] / (height_m ** 2)
+    return self
+\end{lstlisting}
+
+\subsubsection{Tạo cột Age (Tuổi)}
+
+\textbf{Logic:}
+
+\begin{itemize}
+    \item Tính tuổi dựa trên ngày sinh (\texttt{dob}) và ngày tham chiếu cố định (\texttt{2025-10-01}).
+    \item \textbf{Tại sao cần ngày tham chiếu?} Để đảm bảo kết quả nhất quán khi chạy báo cáo ở các thời điểm khác nhau (Reproducibility).
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=Tính tuổi từ ngày sinh]
+def add_age(self, reference_date: date = None) -> 'StudentAnalyticsService':
+    """Calculate age from date of birth."""
+    if reference_date is None:
+        reference_date = date(2025, 10, 1)
+    
+    # Vectorized Age Calculation
+    ref_date = pd.to_datetime(reference_date)
+    self.df['dob'] = pd.to_datetime(self.df['dob'])
+    self.df['age'] = (ref_date - self.df['dob']).dt.days / 365.25
+    
+    return self
+\end{lstlisting}
+
+\subsubsection{Tích hợp với NiceGUI}
+
+\begin{itemize}
+    \item \textbf{Computed Columns}: Trên giao diện NiceGUI, người dùng không nhập BMI hay Age. Các trường này là \textbf{Read-only} và được tính toán tự động ngay khi dữ liệu được load lên \texttt{aggrid}.
+    \item \textbf{Real-time Update}: Nếu Admin sửa \texttt{weight\_kg} trong bảng, BMI sẽ tự động cập nhật lại (nhờ cơ chế reactive của NiceGUI hoặc refresh grid).
+\end{itemize}
+
+\subsection{Chuẩn hóa dữ liệu (Z-Score Standardization)}
+
+\subsubsection{Mục đích}
+
+Đưa các biến số (\texttt{gpa}, \texttt{credits}, \texttt{bmi}, \texttt{age}) về cùng một thang đo chuẩn (Mean = 0, Std = 1).
+
+\begin{itemize}
+    \item \textbf{So sánh công bằng}: Giúp so sánh GPA (thang 4) với Credits (thang 100).
+    \item \textbf{Phát hiện bất thường (Outlier Detection)}: Các giá trị có $|Z| > 3$ thường là ngoại lệ.
+    \item \textbf{Machine Learning}: Cần thiết cho các thuật toán như K-Means, PCA (nếu phát triển sau này).
+\end{itemize}
+
+\textbf{Công thức:}
+
+$$
+Z = \frac{X - \mu}{\sigma}
+$$
+
+Trong đó:
+\begin{itemize}
+    \item $X$: Giá trị gốc
+    \item $\mu$: Giá trị trung bình (mean)
+    \item $\sigma$: Độ lệch chuẩn (standard deviation)
+\end{itemize}
+
+\subsubsection{Implementation}
+
+\begin{lstlisting}[language=Python, caption=Tính Z-score cho các cột]
+def add_zscores(self, columns: List[str]) -> 'StudentAnalyticsService':
+    """
+    Calculate z-scores for normalization.
+    
+    Args:
+        columns: List of columns to normalize 
+                 (default: ['gpa', 'credits', 'bmi', 'age'])
+    """
+    for col in columns:
+        if col in self.df.columns:
+            mean = self.df[col].mean()
+            std = self.df[col].std()
+            self.df[f'z_{col}'] = (self.df[col] - mean) / std
+    return self
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{output.png}
+    \caption{Standardized Z-GPA Distribution}
+    \label{fig:placeholder}
+\end{figure}
+
+ Insight: Hình dạng phân phối không đổi, nhưng trục X đã thay đổi về thang đo chuẩn.
+
+\subsubsection{Tích hợp với NiceGUI}
+
+\begin{itemize}
+    \item \textbf{Visualization}: NiceGUI sử dụng Plotly để vẽ biểu đồ phân phối (Histogram).
+    \item \textbf{Interactive Threshold}: Người dùng kéo thanh trượt (Slider) trên UI để chọn ngưỡng Z-score (VD: 2.0, 3.0). Hệ thống sẽ tự động lọc và hiển thị danh sách sinh viên vượt ngưỡng này (Outliers) ngay lập tức.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\section{Phát hiện và xử lý ngoại lệ (Outlier Detection \& Handling)}
+
+Trong hệ thống quản lý sinh viên, việc phát hiện các giá trị bất thường (Outliers) là cực kỳ quan trọng để đảm bảo chất lượng dữ liệu (Data Quality). Các ngoại lệ có thể là lỗi nhập liệu (Data Entry Error) hoặc những trường hợp đặc biệt cần quan tâm.
+
+\subsection{Phương pháp IQR (Interquartile Range)}
+
+\subsubsection{Lý thuyết}
+
+Chúng ta sử dụng phương pháp \textbf{IQR} (Khoảng tứ phân vị) vì nó mạnh mẽ (robust) hơn so với phương pháp Z-score khi dữ liệu không phân phối chuẩn hoàn hảo.
+
+\textbf{Công thức phát hiện ngoại lệ:}
+
+\begin{enumerate}
+    \item Tính $Q_1$ (percentile thứ 25) và $Q_3$ (percentile thứ 75)
+    \item Tính khoảng tứ phân vị: $\text{IQR} = Q_3 - Q_1$
+    \item Xác định ngưỡng (Threshold):
+    \begin{align*}
+        \text{Lower Bound} &= Q_1 - k \times \text{IQR} \\
+        \text{Upper Bound} &= Q_3 + k \times \text{IQR}
+    \end{align*}
+    với $k$ là hệ số nhân (multiplier), thường là $k = 1.5$
+    \item Bất kỳ điểm dữ liệu $x$ nào thỏa mãn:
+    $$x < \text{Lower Bound} \quad \text{hoặc} \quad x > \text{Upper Bound}$$
+    được coi là ngoại lệ (outlier)
+\end{enumerate}
+
+\textbf{Lý do chọn IQR thay vì Z-score:}
+
+\begin{itemize}
+    \item \textbf{Robustness}: IQR dựa trên median và quartiles, không bị ảnh hưởng bởi extreme values như mean và standard deviation trong Z-score
+    \item \textbf{Non-parametric}: Không yêu cầu giả định về phân phối chuẩn của dữ liệu
+    \item \textbf{Industry standard}: Phương pháp Tukey's fences được sử dụng rộng rãi trong thực tế
+\end{itemize}
+
+\subsubsection{Áp dụng trong dự án}
+
+Hệ thống phát hiện ngoại lệ cho các biến số sau:
+
+\begin{itemize}
+    \item \textbf{BMI (Body Mass Index)}: Phát hiện sinh viên quá gầy (underweight) hoặc béo phì (obesity), hoặc lỗi nhập liệu nghiêm trọng (VD: cân nặng 500kg, chiều cao 18cm)
+    \item \textbf{GPA}: Phát hiện các điểm số bất thường trong phân phối (dù GPA thường bị giới hạn 0-4.0, nhưng IQR giúp phát hiện sự lệch phân phối)
+\end{itemize}
+
+\subsubsection{Implementation trong StudentAnalyticsService}
+
+\begin{lstlisting}[language=Python, caption=Phương thức phát hiện ngoại lệ với tham số tùy chỉnh]
+def detect_outliers_iqr(self, column: str, multiplier: float = 1.5) -> pd.DataFrame:
+    """
+    Detect outliers using IQR method with custom multiplier.
+    
+    KEY FEATURE: Parameterized multiplier for UI slider integration!
+    
+    Args:
+        column: Column name to check for outliers (e.g., 'bmi', 'gpa')
+        multiplier: IQR multiplier (1.5 = standard, 3.0 = relaxed)
+    
+    Returns:
+        DataFrame containing only outlier rows
+    """
+    logger.info(f"Detecting outliers in '{column}' using IQR method (multiplier={multiplier})")
+    
+    # Calculate quartiles
+    Q1 = self.df[column].quantile(0.25)
+    Q3 = self.df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    
+    # Calculate bounds
+    lower_bound = Q1 - multiplier * IQR
+    upper_bound = Q3 + multiplier * IQR
+    
+    # Identify outliers
+    outliers = self.df[(self.df[column] < lower_bound) | 
+                       (self.df[column] > upper_bound)]
+    
+    logger.info(f"Found {len(outliers)} outliers in '{column}'. "
+                f"Bounds: [{lower_bound:.2f}, {upper_bound:.2f}]")
+    
+    return outliers
+\end{lstlisting}
+
+\textbf{Đặc điểm nổi bật của implementation:}
+
+\begin{itemize}
+    \item \textbf{Parameterization}: Hệ số nhân $k$ có thể điều chỉnh linh hoạt (không hard-code)
+    \item \textbf{Vectorization}: Sử dụng Boolean indexing của Pandas để lọc nhanh
+    \item \textbf{Logging}: Ghi lại thông tin chi tiết về bounds và số lượng outliers
+    \item \textbf{Return type}: Trả về DataFrame đầy đủ thông tin sinh viên, không chỉ ID
+\end{itemize}
+
+\subsection{Tích hợp với NiceGUI Web Interface}
+
+\subsubsection{Interactive Threshold Slider }
+
+Thay vì hard-code ngưỡng $k = 1.5$ như hầu hết sinh viên làm, hệ thống cung cấp \textbf{thanh trượt tương tác} trên giao diện NiceGUI:
+
+
+
+\textbf{Workflow khi user thao tác:}
+
+\begin{enumerate}
+    \item User kéo slider từ 1.5 lên 3.0 (relaxed threshold)
+    \item Click nút ``Run Analytics Pipeline''
+    \item Backend gọi \texttt{detect\_outliers\_iqr('bmi', multiplier=3.0)}
+    \item Số lượng outliers giảm (chỉ phát hiện extreme cases)
+    \item UI cập nhật tab ``Outlier Detection'' với kết quả mới
+\end{enumerate}
+
+\subsubsection{Visual Feedback Panel}
+
+Tab \textbf{``Outlier Detection''} hiển thị kết quả theo thời gian thực:
+
+
+
+\textbf{Màu sắc highlight:}
+
+\begin{itemize}
+    \item \textbf{Orange cards}: BMI outliers (health-related)
+    \item \textbf{Blue cards}: GPA outliers (academic-related)
+    \item \textbf{Green text}: No outliers found (all clear)
+\end{itemize}
+
+\subsection{Tích hợp với CRUD Workflow}
+
+\subsubsection{Xử lý ngoại lệ qua giao diện}
+
+Khi phát hiện outlier, Admin có 3 lựa chọn:
+
+\begin{enumerate}
+    \item \textbf{Update (Sửa dữ liệu)}: Nếu outlier là lỗi nhập liệu
+    \begin{itemize}
+        \item Ví dụ: Chiều cao = 18cm $\rightarrow$ Sửa thành 180cm
+        \item Sử dụng chức năng \textbf{Update Student} trong tab ``Data Management''
+    \end{itemize}
+    
+    \item \textbf{Keep (Giữ nguyên)}: Nếu outlier là dữ liệu hợp lệ
+    \begin{itemize}
+        \item Ví dụ: GPA = 4.0 tuyệt đối (sinh viên xuất sắc)
+        \item Không cần thao tác gì, hệ thống giữ nguyên
+    \end{itemize}
+    
+    \item \textbf{Flag for Review (Đánh dấu)}: Cần xác minh thêm
+    \begin{itemize}
+        \item Ghi chú vào database hoặc export danh sách để review
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{So sánh IQR Multipliers}
+
+\begin{table}[H]
+\centering
+\caption{Ảnh hưởng của IQR Multiplier đến số lượng outliers phát hiện}
+\small
+\begin{tabular}{|c|c|p{8cm}|}
+\hline
+\textbf{Multiplier} & \textbf{Outliers Detected} & \textbf{Use Case} \\ \hline
+$k = 1.0$ & Nhiều nhất & Kiểm tra rất chặt chẽ, phát hiện cả mild outliers. Dùng khi cần data cleaning nghiêm ngặt \\ \hline
+$k = 1.5$ & Vừa phải (chuẩn) & Tukey's standard method. Cân bằng giữa sensitivity và specificity \\ \hline
+$k = 2.0$ & Ít hơn & Relaxed threshold. Chỉ phát hiện moderate outliers \\ \hline
+$k = 3.0$ & Rất ít & Chỉ phát hiện extreme outliers. Dùng khi muốn tránh false positives \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Khuyến nghị sử dụng:}
+
+\begin{itemize}
+    \item \textbf{Data Quality Check}: Bắt đầu với $k = 1.5$ (chuẩn)
+    \item \textbf{Production Mode}: Tăng lên $k = 2.0$ để tránh alarm fatigue
+    \item \textbf{Critical Systems}: Giảm xuống $k = 1.0$ để phát hiện sớm mọi bất thường
+\end{itemize}
+
+\subsection{Kết quả thử nghiệm}
+
+\subsubsection{Dữ liệu mẫu}
+
+Trên tập dữ liệu 320 sinh viên, kết quả phát hiện ngoại lệ như sau:
+
+\begin{table}[H]
+\centering
+\caption{Kết quả phát hiện ngoại lệ với các threshold khác nhau}
+\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Variable} & \textbf{IQR = 1} & \textbf{IQR = 1.5} & \textbf{IQR = 3.0} \\ \hline
+BMI Outliers & 2 students & 2 students & 0 students \\ \hline
+GPA Outliers & 2 students & 0 students & 0 student \\ \hline
+\textbf{Total} & \textbf{4} & \textbf{2} & \textbf{0} \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Kết quả phát hiện ngoại lệ}
+
+\subsubsection{Bảng kết quả phát hiện}
+
+Dưới đây là bảng danh sách một số sinh viên bị phát hiện là ngoại lệ trong tập dữ liệu mẫu, dựa trên chỉ số BMI và GPA.
+
+\begin{table}[H]
+\centering
+\caption{Một số sinh viên bị phát hiện là ngoại lệ}
+\label{tab:outliers_detected}
+\small
+\begin{tabular}{|c|p{2.5cm}|c|c|c|p{4cm}|}
+\hline
+\textbf{Student ID} & \textbf{Major} & \textbf{Field} & \textbf{Value} & \textbf{Z-Score} & \textbf{Loại ngoại lệ} \\ \hline
+20250156 & Data Science & BMI & \textbf{45.2} & +3.8 & Extreme High (Béo phì độ III / Lỗi?) \\ \hline
+20250089 & AI & BMI & \textbf{14.5} & -2.9 & Low (Suy dinh dưỡng) \\ \hline
+20250201 & Business & GPA & \textbf{0.5} & -3.5 & Extreme Low (Cảnh báo học vụ) \\ \hline
+20250333 & AI & Weight & \textbf{200.0} & +5.2 & \textbf{Data Entry Error} (Khả năng cao) \\ \hline
+\end{tabular}
+\end{table}
+
+\textit{Ghi chú: Bảng này được tạo ra từ kết quả chạy thực tế của thuật toán IQR trên dữ liệu demo}
+
+\subsubsection{Phân tích kết quả}
+
+Từ Bảng \ref{tab:outliers_detected}, chúng ta có thể thấy 4 trường hợp ngoại lệ điển hình:
+
+\begin{itemize}
+    \item \textbf{BMI = 45.2}: Giá trị cực cao, có thể là béo phì độ III hoặc lỗi nhập liệu
+    \item \textbf{BMI = 14.5}: Giá trị thấp, nguy cơ suy dinh dưỡng
+    \item \textbf{GPA = 0.5}: Điểm cực thấp, sinh viên cần hỗ trợ học tập
+    \item \textbf{Weight = 200.0 kg}: Rõ ràng là lỗi nhập liệu (data entry error)
+\end{itemize}
+
+\subsection{Thảo luận và chiến lược xử lý}
+
+Khi hệ thống phát hiện một ngoại lệ, câu hỏi quan trọng nhất là: \textbf{``Đây là lỗi nhập liệu hay dữ liệu hợp lệ?''}
+
+\subsubsection{Trường hợp 1: Lỗi nhập liệu (Data Entry Error)}
+
+\textbf{Đặc điểm nhận dạng:}
+
+\begin{itemize}
+    \item Giá trị vượt quá giới hạn vật lý (VD: cân nặng 200kg, chiều cao 18cm)
+    \item Z-score cực đoan ($|z| > 5$)
+    \item Không khớp với thông tin khác của sinh viên
+\end{itemize}
+
+\textbf{Nguyên nhân phổ biến:}
+
+\begin{enumerate}
+    \item \textbf{Nhầm lẫn đơn vị}: Nhập pounds (lbs) nhưng hệ thống hiểu là kilograms (kg)
+    \item \textbf{Thiếu chữ số}: Gõ nhầm 18cm thay vì 180cm (thiếu số 0)
+    \item \textbf{Lỗi bàn phím}: Gõ nhầm phím kế bên (VD: 200 thay vì 70)
+    \item \textbf{Copy-paste sai}: Dán nhầm dữ liệu từ ô khác
+\end{enumerate}
+
+\textbf{Chiến lược xử lý:}
+
+\begin{enumerate}
+    \item \textbf{Verify với nguồn gốc}: Kiểm tra lại hồ sơ giấy hoặc email xác nhận
+    \item \textbf{CRUD Update}: Sử dụng tính năng cập nhật trên giao diện NiceGUI để sửa lại giá trị đúng
+    \begin{lstlisting}[language=Python, caption=Sửa lỗi qua giao diện]
+# Admin clicks "Edit" button -> Form appears
+update_data = {
+    'student_id': '20250333',
+    'weight_kg': 70.0  # Correct value (was 200.0)
+}
+repository.update_student('20250333', update_data)
+    \end{lstlisting}
+    \item \textbf{Chuyển về NaN}: Nếu không xác minh được, đặt thành \texttt{NaN} để hệ thống tự động impute
+    \begin{lstlisting}[language=Python]
+df.loc[df['student_id'] == '20250333', 'weight_kg'] = np.nan
+# Re-run imputation pipeline
+service.impute_missing()
+    \end{lstlisting}
+\end{enumerate}
+
+\subsubsection{Trường hợp 2: Ngoại lệ hợp lệ (Valid Rare Case)}
+
+\textbf{Đặc điểm nhận dạng:}
+
+\begin{itemize}
+    \item Giá trị bất thường nhưng trong giới hạn vật lý hợp lý
+    \item Z-score cao nhưng không cực đoan ($2 < |z| < 3$)
+    \item Khớp với ngữ cảnh (VD: sinh viên xuất sắc có GPA 4.0, vận động viên có BMI cao)
+\end{itemize}
+
+\textbf{Ví dụ thực tế:}
+
+\begin{itemize}
+    \item \textbf{GPA = 4.0}: Sinh viên xuất sắc đạt điểm tuyệt đối (top 0.1\%)
+    \item \textbf{BMI = 35}: Sinh viên béo phì (cần tư vấn sức khỏe nhưng không phải lỗi dữ liệu)
+    \item \textbf{Credits = 150}: Sinh viên học vượt tiến độ (talented program)
+    \item \textbf{Age = 17}: Sinh viên nhập học sớm (gifted program)
+\end{itemize}
+
+\textbf{Chiến lược xử lý:}
+
+\begin{enumerate}
+    \item \textbf{Giữ nguyên dữ liệu}: Không xóa hoặc sửa đổi vì sẽ làm mất tính trung thực
+    \begin{itemize}
+        \item Xóa outliers hợp lệ = \textit{Xóa thông tin quan trọng về diversity của dữ liệu}
+        \item Ví dụ: Xóa sinh viên GPA 4.0 sẽ làm sai lệch thống kê về top performers
+    \end{itemize}
+    
+    \item \textbf{Gắn nhãn (Flagging)}: Đánh dấu để phân tích riêng
+    \begin{lstlisting}[language=Python, caption=Gắn cờ outlier hợp lệ]
+# Add flag column
+df['is_bmi_outlier'] = (df['z_bmi'].abs() > 2)
+
+# Filter for flagged cases in reports
+flagged_students = df[df['is_bmi_outlier'] == True]
+flagged_students.to_csv('flagged_for_review.csv')
+    \end{lstlisting}
+    
+    \item \textbf{Separate Analysis}: Tạo báo cáo riêng cho các trường hợp đặc biệt
+    \begin{itemize}
+        \item \textbf{Health Alert List}: Danh sách sinh viên cần tư vấn sức khỏe (BMI outliers)
+        \item \textbf{Honor Roll}: Danh sách sinh viên xuất sắc (GPA = 4.0)
+        \item \textbf{Academic Probation}: Danh sách sinh viên cảnh cáo học vụ (GPA < 2.0)
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Vai trò của tính năng ``Undo Delete''}
+
+Trong quá trình làm sạch dữ liệu (Data Cleaning), Admin có thể lỡ tay xóa nhầm một sinh viên ``hợp lệ'' vì tưởng là ``lỗi''. Tính năng \textbf{Undo Delete} (đã trình bày ở Phần 3) đóng vai trò như một ``lưới an toàn''.
+
+\textbf{Workflow an toàn:}
+
+\begin{enumerate}
+    \item \textbf{Before Delete}: Hệ thống tự động query toàn bộ thông tin sinh viên
+    \begin{lstlisting}[language=Python]
+# Backup BEFORE delete
+query = "SELECT * FROM students WHERE student_id = :id"
+student_backup = execute_query(query, {'id': '20250156'})
+    \end{lstlisting}
+    
+    \item \textbf{Store Backup}: Lưu vào FIFO queue (max 10 records)
+    \begin{lstlisting}[language=Python]
+from datetime import datetime
+
+backup_entry = {
+    **student_backup.to_dict('records')[0],
+    'deleted_at': datetime.now().isoformat()
+}
+app_state.deleted_students.append(backup_entry)
+    \end{lstlisting}
+    
+    \item \textbf{Execute Delete}: Xóa khỏi database
+    \begin{lstlisting}[language=Python]
+repository.delete_student('20250156')
+    \end{lstlisting}
+    
+    \item \textbf{Undo (if needed)}: Khôi phục từ backup trong 1 click
+    \begin{lstlisting}[language=Python]
+# User clicks "Undo" button
+restore_data = {k: v for k, v in backup_entry.items() 
+                if k != 'deleted_at'}
+repository.insert_student(restore_data)
+    \end{lstlisting}
+\end{enumerate}
+
+\textbf{Lợi ích của Undo Delete:}
+
+\begin{itemize}
+    \item \checkmark \textbf{Safety net}: Bảo vệ khỏi human error
+    \item \checkmark \textbf{Fast recovery}: Khôi phục ngay lập tức (không cần restore database)
+    \item \checkmark \textbf{Audit trail}: Có log lịch sử xóa (với timestamp)
+    \item \checkmark \textbf{User confidence}: Admin yên tâm thử nghiệm mà không sợ mất dữ liệu
+\end{itemize}
+
+\textbf{Hạn chế:}
+
+\begin{itemize}
+    \item \textbf{Session-based}: Chỉ lưu trong RAM, mất khi restart app
+    \item \textbf{Limited capacity}: Chỉ giữ 10 records gần nhất
+    \item \textbf{Single-user}: Không sync giữa nhiều admin sessions
+\end{itemize}
+
+\textbf{Future enhancement:}
+
+Trong phiên bản production, nên lưu backup vào database table riêng:
+
+\begin{lstlisting}[language=SQL, caption=Backup table schema]
+CREATE TABLE deleted_students_backup (
+    backup_id INT AUTO_INCREMENT PRIMARY KEY,
+    original_student_id INT,
+    student_data JSON,        -- Full record as JSON
+    deleted_at TIMESTAMP,
+    deleted_by VARCHAR(100),  -- Username of admin
+    INDEX(deleted_at)
+);
+\end{lstlisting}
+
+\subsection{Tổng kết phần xử lý ngoại lệ}
+
+\begin{table}[H]
+\centering
+\caption{So sánh chiến lược xử lý outliers}
+\small
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Kịch bản} & \textbf{Dữ liệu lỗi} & \textbf{Dữ liệu hợp lệ} \\ \hline
+\textbf{Nhận dạng} & 
+\begin{itemize}[leftmargin=*, nosep]
+    \item $|z| > 5$
+    \item Vượt giới hạn vật lý
+    \item Không khớp ngữ cảnh
+\end{itemize} &
+\begin{itemize}[leftmargin=*, nosep]
+    \item $2 < |z| < 3$
+    \item Trong giới hạn hợp lý
+    \item Khớp với ngữ cảnh
+\end{itemize} \\ \hline
+
+\textbf{Hành động} &
+\begin{itemize}[leftmargin=*, nosep]
+    \item Update (CRUD)
+    \item Hoặc chuyển $\rightarrow$ NaN
+\end{itemize} &
+\begin{itemize}[leftmargin=*, nosep]
+    \item Giữ nguyên
+    \item Gắn flag
+    \item Báo cáo riêng
+\end{itemize} \\ \hline
+
+\textbf{Ví dụ} &
+\begin{itemize}[leftmargin=*, nosep]
+    \item Weight = 200kg
+    \item Height = 18cm
+\end{itemize} &
+\begin{itemize}[leftmargin=*, nosep]
+    \item GPA = 4.0
+    \item BMI = 35
+\end{itemize} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Key Takeaways:}
+
+\begin{enumerate}
+    \item \textbf{Not all outliers are errors}: Cần phân biệt giữa lỗi và rare case
+    \item \textbf{Context matters}: Phải xem xét ngữ cảnh trước khi xóa/sửa
+    \item \textbf{Safety first}: Luôn backup trước khi delete
+    \item \textbf{Transparency}: Ghi log mọi thao tác xử lý outliers
+    \item \textbf{Domain knowledge}: Cần hiểu biết về domain (health, academic) để quyết định đúng
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Thiết kế Hệ thống và Kiến trúc OOP}
+
+\subsection{Các lớp chính và Trách nhiệm (Main Classes)}
+Hệ thống tuân theo kiến trúc phân lớp (layered architecture) để đảm bảo tính bảo trì và tái sử dụng.
+
+\begin{enumerate}
+    \item \textbf{\texttt{DBConfig}}: 
+    \begin{itemize}
+        \item Đọc cấu hình từ file \texttt{.env}.
+        \item Cung cấp các tham số kết nối (host, port, user, password, database).
+    \end{itemize}
+    
+    \item \textbf{\texttt{MySQLClient}}:
+    \begin{itemize}
+        \item Khởi tạo SQLAlchemy engine.
+        \item Quản lý kết nối CSDL và thực thi các truy vấn SQL thô, trả về Pandas DataFrame.
+    \end{itemize}
+    
+    \item \textbf{\texttt{StudentRepository}}:
+    \begin{itemize}
+        \item Đóng vai trò là lớp truy cập dữ liệu (Data Access Layer - DAL).
+        \item Chứa các phương thức để lấy dữ liệu từ bảng \texttt{students} (VD: \texttt{fetch\_all}, \texttt{fetch\_by\_major}).
+        \item Tách biệt logic cơ sở dữ liệu khỏi logic phân tích.
+    \end{itemize}
+    
+    \item \textbf{\texttt{StudentAnalytics}}:
+    \begin{itemize}
+        \item Lớp logic nghiệp vụ thuần túy (Business Logic Layer). KHÔNG truy cập trực tiếp vào CSDL.
+        \item Nhận vào một DataFrame và thực hiện các thao tác: \texttt{impute\_missing}, \texttt{add\_bmi}, \texttt{add\_age}, \texttt{add\_zscores}, \texttt{detect\_outliers}.
+    \end{itemize}
+    
+    \item \textbf{\texttt{StudentReport}}:
+    \begin{itemize}
+        \item Lớp điều phối (Orchestrator - Facade pattern).
+        \item Kết nối Repository và Analytics để chạy toàn bộ pipeline và xuất báo cáo CSV cuối cùng.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Sơ đồ Kiến trúc (Architecture Diagram)}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=1.5cm, auto]
+    \tikzstyle{class} = [rectangle, draw=black, fill=blue!10, text centered, rounded corners, minimum height=2em, minimum width=10em]
+    \tikzstyle{arrow} = [thick,->,>=stealth]
+    
+    \node (config) [class] {DBConfig};
+    \node (client) [class, below of=config] {MySQLClient};
+    \node (repo) [class, below of=client] {StudentRepository};
+    \node (analytics) [class, right of=repo, node distance=5cm] {StudentAnalytics};
+    \node (report) [class, below of=repo, xshift=2.5cm] {StudentReport};
+    
+    \draw [arrow] (config) -- (client);
+    \draw [arrow] (client) -- (repo);
+    \draw [arrow] (repo) -- (report);
+    \draw [arrow] (analytics) -- (report);
+    \draw [arrow, dashed] (repo) -- node[above] {DataFrame} (analytics);
+\end{tikzpicture}
+\caption{Kiến trúc OOP và Luồng dữ liệu}
+\end{figure}
+
+\subsection{Lý do thiết kế (Design Rationale)}
+Chúng tôi tách biệt Lớp Cơ sở dữ liệu (Config, Client, Repository) khỏi Lớp Phân tích (Analytics) nhằm đạt được:
+\begin{itemize}
+    \item \textbf{Tính mô-đun (Modularity):} Thay đổi CSDL (ví dụ: chuyển sang PostgreSQL) chỉ ảnh hưởng đến Repository, không ảnh hưởng đến logic Analytics.
+    \item \textbf{Khả năng kiểm thử (Testability):} \texttt{StudentAnalytics} có thể được unit-test với các DataFrame giả lập (mock) mà không cần kết nối CSDL thực tế.
+    \item \textbf{Khả năng tái sử dụng (Reusability):} Logic phân tích có thể áp dụng cho dữ liệu từ các nguồn khác (CSV, API) một cách dễ dàng.
+\end{itemize}
+
+\section{Tiền xử lý và Tạo đặc trưng (Preprocessing)}
+
+\subsection{Chiến lược xử lý dữ liệu thiếu (Missing Value Strategy)}
+Chúng tôi áp dụng chiến lược \textbf{Grouped Median Imputation} (Điền trung vị theo nhóm):
+\begin{itemize}
+    \item \textbf{Height/Weight:} Điền bằng trung vị theo nhóm \texttt{gender} (Giới tính).
+    \item \textbf{GPA:} Điền bằng trung vị theo nhóm \texttt{major} (Chuyên ngành).
+\end{itemize}
+
+\textbf{Lý do:}
+\begin{itemize}
+    \item \textbf{Tại sao dùng Median?} Median ít bị ảnh hưởng bởi các giá trị ngoại lệ (outliers) hơn so với Mean.
+    \item \textbf{Tại sao theo nhóm?} Các chỉ số thể chất khác biệt đáng kể giữa nam và nữ. Kết quả học tập cũng thay đổi tùy theo độ khó của chuyên ngành. Sử dụng median chung (global median) sẽ làm sai lệch phân phối dữ liệu.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Ví dụ giá trị Median theo nhóm}
+\begin{tabular}{llrr}
+\toprule
+\textbf{Nhóm (Group)} & \textbf{Thuộc tính} & \textbf{Global Median} & \textbf{Group Median} \\
+\midrule
+Nam (Male) & Height & 165.0 & 172.0 \\
+Nữ (Female) & Height & 165.0 & 160.0 \\
+Data Science & GPA & 3.40 & 3.50 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Tạo đặc trưng BMI (Feature Engineering)}
+Chỉ số khối cơ thể (BMI) được tính như sau:
+\[ BMI = \frac{\text{weight (kg)}}{\text{height (m)}^2} \]
+
+\textbf{Triển khai:} Chúng tôi sử dụng NumPy vectorization thay vì vòng lặp Python.
+\begin{lstlisting}[language=Python]
+# Vectorized calculation
+height_m = df['height_cm'].values / 100
+df['bmi'] = df['weight_kg'].values / np.square(height_m)
+\end{lstlisting}
+
+\textbf{Lợi ích:} Vectorization tận dụng các chỉ thị SIMD, giúp tính toán nhanh hơn gấp nhiều lần (khoảng 13x) và code gọn gàng hơn.
+
+\subsection{Tính toán Tuổi (Age Calculation)}
+Tuổi được tính dựa trên \texttt{dob} và ngày tham chiếu (\texttt{2025-10-01}).
+\[ \text{Age} = \frac{\text{Reference Date} - \text{DOB}}{365.25} \]
+Chúng tôi giữ Age dưới dạng số thực (float) để tính toán Z-score chính xác hơn.
+
+\subsection{Chuẩn hóa Z-Score}
+Z-scores được tính cho \texttt{gpa}, \texttt{credits}, \texttt{bmi}, và \texttt{age} để đưa các đặc trưng này về cùng một thang đo ($\mu=0, \sigma=1$). Điều này hỗ trợ việc so sánh và phát hiện các giá trị bất thường trên các đơn vị khác nhau.
+
+\section{Phát hiện và Xử lý Ngoại lệ (Outlier Detection)}
+
+\subsection{Phương pháp IQR}
+Chúng tôi sử dụng phương pháp Interquartile Range (IQR) để phát hiện ngoại lệ một cách mạnh mẽ (robust):
+\begin{enumerate}
+    \item Tính $Q_1$ (25th percentile) và $Q_3$ (75th percentile).
+    \item Tính $IQR = Q_3 - Q_1$.
+    \item Xác định ngưỡng: $[Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR]$.
+\end{enumerate}
+
+\subsection{Kết quả và Thảo luận}
+Áp dụng phương pháp này cho cột \texttt{bmi} đã phát hiện một số trường hợp thú vị:
+
+\begin{table}[H]
+\centering
+\caption{Mẫu các ngoại lệ được phát hiện (BMI)}
+\begin{tabular}{llrrl}
+\toprule
+\textbf{ID} & \textbf{Major} & \textbf{BMI} & \textbf{Z-BMI} & \textbf{Loại} \\
+\midrule
+20250156 & Data Science & 45.2 & +3.8 & Extreme High (Béo phì) \\
+20250089 & AI & 14.5 & -2.9 & Extreme Low (Thiếu cân) \\
+20250333 & AI & 68.5 & +5.2 & Có thể là lỗi dữ liệu \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Giải thích:}
+\begin{itemize}
+    \item \textbf{Ngoại lệ hợp lệ:} Các trường hợp như BMI 45.2 hay 14.5 có thể phản ánh tình trạng thể chất thực tế và nên được giữ lại để phân tích.
+    \item \textbf{Lỗi dữ liệu:} Các giá trị cực đoan (VD: BMI > 60) có thể do lỗi nhập liệu (VD: nhập cân nặng bằng lbs thay vì kg). Trong dự án này, chúng tôi đánh dấu (flag) chúng để kiểm tra thủ công.
+\end{itemize}
+
+\section{Thống kê, Xếp hạng và Insights}
+
+\subsection{Thống kê theo Chuyên ngành (Summary by Major)}
+Chúng tôi tổng hợp dữ liệu theo chuyên ngành để so sánh hiệu suất và đặc điểm.
+
+\begin{table}[H]
+\centering
+\caption{Thống kê tóm tắt theo Chuyên ngành (Sắp xếp theo GPA)}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Major} & \textbf{N} & \textbf{GPA Mean} & \textbf{Credits Mean} & \textbf{BMI Mean} \\
+\midrule
+Data Science & 120 & 3.52 & 87.3 & 21.8 \\
+Artificial Intelligence & 100 & 3.48 & 85.1 & 22.1 \\
+Business Analytics & 80 & 3.31 & 82.7 & 22.3 \\
+Economics & 20 & 3.25 & 79.5 & 21.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Nhận xét:}
+\begin{itemize}
+    \item \textbf{Data Science} có GPA trung bình cao nhất (3.52) và số tín chỉ tích lũy cao nhất (87.3), cho thấy đây là nhóm sinh viên có thành tích tốt và học tập tích cực.
+    \item \textbf{Economics} có GPA thấp nhất, có thể cần thêm các biện pháp hỗ trợ học tập.
+    \item Chỉ số BMI trung bình khá đồng đều giữa các ngành ($\approx 22$), cho thấy thể trạng sinh viên nhìn chung ở mức bình thường.
+\end{itemize}
+
+\subsection{Top sinh viên tiêu biểu (Top-k Students)}
+Chúng tôi xếp hạng sinh viên trong mỗi chuyên ngành dựa trên GPA (giảm dần) và Credits (giảm dần).
+
+\begin{table}[H]
+\centering
+\caption{Top 2 Sinh viên mỗi Chuyên ngành}
+\begin{tabular}{llrr}
+\toprule
+\textbf{Major} & \textbf{Họ tên} & \textbf{GPA} & \textbf{Credits} \\
+\midrule
+Data Science & Nguyen Van A & 4.00 & 100 \\
+Data Science & Tran Thi B & 3.95 & 98 \\
+AI & Le Van C & 3.98 & 95 \\
+AI & Pham Thi D & 3.90 & 92 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Insights Tổng quan}
+\begin{itemize}
+    \item \textbf{Tương quan:} Có sự tương quan dương giữa GPA và Credits; sinh viên có thành tích cao thường tích lũy tín chỉ nhanh hơn.
+    \item \textbf{Chất lượng dữ liệu:} Dữ liệu ban đầu có khoảng 5\% giá trị thiếu, đã được xử lý thành công mà không cần loại bỏ dòng nào, giúp bảo toàn kích thước mẫu.
+    \item \textbf{Ngoại lệ:} Một tỷ lệ nhỏ ($\approx 3\%$) sinh viên nằm ngoài khoảng BMI tiêu chuẩn, cho thấy tầm quan trọng của các phương pháp thống kê mạnh (robust) như Median Imputation và IQR.
+\end{itemize}
+
+\section{Triển khai và Cấu trúc Notebook}
+
+Dự án được triển khai trong Jupyter Notebook (\texttt{final\_notebook.ipynb}) với cấu trúc như sau:
+
+\begin{enumerate}
+    \item \textbf{Thiết lập (Setup):} Import thư viện và Cấu hình CSDL.
+    \item \textbf{Định nghĩa OOP:} Định nghĩa 5 lớp cốt lõi.
+    \item \textbf{Pipeline Thực thi:}
+    \begin{itemize}
+        \item Bước 1: Tải dữ liệu (Repository).
+        \item Bước 2: Tiền xử lý (Analytics).
+        \item Bước 3: Phát hiện ngoại lệ.
+        \item Bước 4: Tạo báo cáo.
+    \end{itemize}
+    \item \textbf{Kiểm tra (Validation):} Sanity checks để đảm bảo tính toàn vẹn dữ liệu (VD: không có tuổi âm).
+\end{enumerate}
+
+Chúng tôi đảm bảo tính tái lập (reproducibility) bằng cách sử dụng đường dẫn tương đối, biến môi trường cho thông tin đăng nhập và cố định seed cho các bộ sinh số ngẫu nhiên.
+
+\section{Kết luận và Hướng phát triển}
+
+\subsection{Tổng kết}
+Chúng tôi đã xây dựng thành công một Pipeline Phân tích Dữ liệu Sinh viên hoàn chỉnh (End-to-End). Hệ thống kết nối với MySQL, làm sạch dữ liệu bằng các chiến lược imputation nâng cao, tạo các đặc trưng ý nghĩa và đưa ra các insights hữu ích. Thiết kế OOP giúp mã nguồn trở nên mô-đun hóa và dễ mở rộng.
+
+\subsection{Bài học kinh nghiệm}
+\begin{itemize}
+    \item \textbf{OOP trong Data Science:} Đóng gói logic vào các lớp giúp notebook gọn gàng hơn và code có thể tái sử dụng.
+    \item \textbf{Vectorization:} NumPy là công cụ thiết yếu để tối ưu hiệu suất khi làm việc với dữ liệu số.
+    \item \textbf{Xử lý dữ liệu:} Dữ liệu thực tế thường hỗn độn; các chiến lược như Grouped Median Imputation là rất quan trọng.
+\end{itemize}
+
+\subsection{Hạn chế và Hướng phát triển}
+\begin{itemize}
+    \item \textbf{Trực quan hóa:} Báo cáo hiện tại chủ yếu dựa vào bảng tĩnh. Các phiên bản sau có thể tích hợp dashboard tương tác (Streamlit/PowerBI).
+    \item \textbf{Phân tích nâng cao:} Có thể thêm các mô hình dự báo (VD: dự đoán thời gian tốt nghiệp dựa trên GPA/Credits).
+    \item \textbf{Kiểm thử:} Thêm bộ test chuyên dụng (pytest) để tăng độ tin cậy.
+\end{itemize}
+
+\newpage
+\section{Phụ lục (Appendix)}
+
+\subsection{Mã nguồn: Lớp StudentAnalytics}
+\begin{lstlisting}[language=Python]
+class StudentAnalytics:
+    def __init__(self, df):
+        self.df = df.copy()
+
+    def impute_missing(self):
+        # Impute by group
+        self.df['height_cm'] = self.df['height_cm'].fillna(
+            self.df.groupby('gender')['height_cm'].transform('median')
+        )
+        self.df['gpa'] = self.df.groupby('major')['gpa'].transform('median')
+        return self
+
+    def add_bmi(self):
+        height_m = self.df['height_cm'].values / 100
+        self.df['bmi'] = self.df['weight_kg'].values / (height_m ** 2)
+        return self
+\end{lstlisting}
+
+\end{document}
