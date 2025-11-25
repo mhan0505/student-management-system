@@ -1,75 +1,90 @@
-# Architecture Documentation - "Top 0.1% Design"
+# Tài liệu Kiến trúc Hệ thống
 
-## System Overview
+## 1. Tổng quan Kiến trúc
 
-Hệ thống Student Management System được thiết kế theo **Clean Architecture** với **Layered Pattern**:
+Hệ thống Student Management System được thiết kế dựa trên nguyên tắc **Clean Architecture** và áp dụng mô hình **Layered Pattern** để đảm bảo tính module hóa và khả năng bảo trì cao.
+
+### 1.1. Sơ đồ Kiến trúc Phân tầng
 
 ```
 ┌─────────────────────────────────────────┐
-│   UI LAYER (app.py - NiceGUI)           │ ← NEW! Interactive Web UI
-│   - User interactions                   │
-│   - Event handlers                      │
-│   - State management                    │
+│   UI Layer (app.py - NiceGUI)           │ ← Giao diện Web tương tác
+│   - Xử lý tương tác người dùng          │
+│   - Quản lý sự kiện                     │
+│   - Quản lý trạng thái ứng dụng         │
 ├─────────────────────────────────────────┤
-│   Presentation Layer (main.py)          │ ← CLI interface
+│   Presentation Layer (main.py)          │ ← Giao diện dòng lệnh
 │   - Jupyter Notebook                    │
 ├─────────────────────────────────────────┤
 │   Report Layer (report_generator.py)    │
-│   - Pipeline Orchestration              │
-│   - Backup management                   │
+│   - Điều phối Pipeline xử lý            │
+│   - Quản lý Backup tự động              │
 ├─────────────────────────────────────────┤
 │   Service Layer (analytics_service.py)  │
-│   - Business Logic                      │
-│   - Parameterized methods ⭐            │
+│   - Logic nghiệp vụ                     │
+│   - Phương thức tham số hóa             │
 ├─────────────────────────────────────────┤
 │   Repository Layer (student_repository) │
-│   - Data Access (SQL queries)           │
+│   - Truy xuất dữ liệu (SQL queries)     │
 ├─────────────────────────────────────────┤
 │   Infrastructure (mysql_client)         │
-│   - Database Connection                 │
+│   - Quản lý kết nối Database            │
 └─────────────────────────────────────────┘
 ```
 
-## 🎯 "Top 0.1%" Design Principles
+## 2. Nguyên tắc Thiết kếế
 
-### 1. Separation of Concerns
-- **UI Layer không chứa business logic**
-- **Service Layer không biết về UI**
-- **Repository Layer chỉ làm data access**
+### 2.1. Separation of Concerns (Tách biệt Trách nhiệm)
 
-### 2. Dependency Inversion
+Hệ thống tuân thủ nghiêm ngặt nguyên tắc phân tách trách nhiệm:
+
+- **UI Layer**: Chỉ xử lý hiển thị và tương tác, không chứa logic nghiệp vụ
+- **Service Layer**: Độc lập với UI, tập trung vào xử lý dữ liệu
+- **Repository Layer**: Chuyên trách truy xuất dữ liệu, không chứa logic xử lý
+
+### 2.2. Dependency Inversion Principle
+
+Áp dụng nguyên tắc đảo ngược phụ thuộc để giảm coupling giữa các tầng:
+
 ```python
-# UI depends on Service (abstraction)
-# Service depends on DataFrame (not Repository)
+# UI phụ thuộc vào Service (abstraction), không phụ thuộc Repository
+# Service nhận DataFrame (decoupled from Repository)
 class StudentAnalyticsService:
-    def __init__(self, df: pd.DataFrame):  # ← Decoupled!
-        self.df = df
+    def __init__(self, df: pd.DataFrame):
+        self.df = df  # Tách biệt hoàn toàn khỏi nguồn dữ liệu
 ```
 
-### 3. Parameterization (Key for UI)
+### 2.3. Tham số hóa (Parameterization)
+
+Các phương thức được thiết kế linh hoạt với tham số điều chỉnh được:
+
 ```python
-# Before (fixed)
+# Thiết kế cũ (cố định)
 def detect_outliers(df):
-    return df[df['bmi'] > threshold]  # threshold hard-coded
+    return df[df['bmi'] > threshold]  # Ngưỡng cố định
 
-# After (parameterized) ⭐
+# Thiết kế mới (tham số hóa)
 def detect_outliers_iqr(df, multiplier=1.5):
-    return df[df['bmi'] > Q3 + multiplier * IQR]  # UI can control!
+    return df[df['bmi'] > Q3 + multiplier * IQR]  # Điều chỉnh linh hoạt
 ```
 
-## Layer Responsibilities
+Lợi ích: Cho phép người dùng tùy chỉnh ngưỡng phát hiện ngoại lệ thông qua giao diện mà không cần thay đổi code.
 
-### 1. Config Layer (`src/config/`)
+## 3. Trách nhiệm từng Tầng
 
-**Responsibility**: Quản lý cấu hình ứng dụng
+### 3.1. Tầng Cấu hình (Config Layer)
 
-- `database.py`: Database connection configuration
-- `settings.py`: Application-wide settings và constants
+**Vị trí**: `src/config/`
 
-**Principles**:
-- Single source of truth cho config
-- Environment-based configuration
-- No hard-coded values
+**Trách nhiệm**: Quản lý toàn bộ cấu hình hệ thống
+
+- `database.py`: Cấu hình kết nối cơ sở dữ liệu
+- `settings.py`: Các thiết lập toàn cục và hằng số
+
+**Nguyên tắc áp dụng**:
+- Nguồn duy nhất (Single Source of Truth) cho mọi cấu hình
+- Cấu hình dựa trên môi trường (Environment-based)
+- Không hard-code giá trị trong mã nguồn
 
 ### 2. Model Layer (`src/models/`)
 
@@ -139,7 +154,7 @@ class StudentAnalyticsService:
 - Export functionality
 - **Automatic backup before processing** (safety net)
 
-### 6. UI Layer (`app.py`) ⭐ NEW!
+### 6. UI Layer (`app.py`) 
 
 **Responsibility**: Interactive web interface
 
@@ -202,7 +217,7 @@ class AppState:
       Save to CSV/Excel
 ```
 
-### Web UI Flow (app.py) ⭐ NEW!
+### Web UI Flow (app.py) 
 ```
 ┌──────────┐
 │ Browser  │ User visits localhost:8080
@@ -245,7 +260,7 @@ class AppState:
 └──────────────────┘
 ```
 
-### CRUD Operations Flow ⭐ NEW!
+### CRUD Operations Flow 
 ```
 ┌─────────────────────┐
 │ Tab 4: CRUD Panel   │ User clicks Data Management tab
@@ -541,7 +556,7 @@ tests/
 ✅ **Professional**: Follows industry best practices  
 ✅ **Interactive**: Real-time parameter tuning with NiceGUI ⭐  
 
-**Perfect for "Top 0.1%" demonstration!** 🎯
+**Perfect for demonstration!** 🎯
 
 ### Ví dụ:
 

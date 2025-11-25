@@ -1,6 +1,6 @@
 # Hướng dẫn sử dụng Student Management System
 
-## 📚 Cấu trúc Project (Top 0.1% Architecture)
+## 📚 Cấu trúc Project 
 
 ```
 [DSEB]FINAL/
@@ -22,57 +22,53 @@
 └── requirements.txt         # Dependencies
 ```
 
-## 🚀 Bắt đầu nhanh
+## 2. Hướng dẫn Khởi động Nhanh
 
-### ⭐ Option 1: Web UI (RECOMMENDED)
+### 2.1. Phương án 1: Giao diện Web (Khuyên dùng)
 
 ```powershell
-# 1. Activate environment
+# Bước 1: Kích hoạt môi trường ảo
 .\student_env\Scripts\activate
 
-# 2. Run NiceGUI app
+# Bước 2: Chạy ứng dụng NiceGUI
 python app.py
 
-# 3. Open browser: http://localhost:8080
+# Bước 3: Mở trình duyệt tại: http://localhost:8080
 ```
 
-**Features:**
-- Interactive parameter tuning (IQR slider)
-- Real-time charts & analytics
-- One-click data export
-- Professional UI/UX
+**Các tính năng chính:**
+- Điều chỉnh tham số tương tác (IQR slider)
+- Biểu đồ và phân tích real-time
+- Xuất dữ liệu một chạm
+- Giao diện chuyên nghiệp
 
-👉 **See [NICEGUI_GUIDE.md](NICEGUI_GUIDE.md) for details**
+**Chi tiết**: Xem [NICEGUI_GUIDE.md](NICEGUI_GUIDE.md)
 
----
-
-### Option 2: CLI (Command Line)
+### 2.2. Phương án 2: Giao diện Dòng lệnh (CLI)
 
 ```powershell
-# 1. Activate environment
+# Bước 1: Kích hoạt môi trường ảo
 .\student_env\Scripts\activate
 
-# 2. Run pipeline
+# Bước 2: Chạy quy trình xử lý
 python main.py
 
-# Output: student_report.csv + student_analysis.log
+# Kết quả: student_report.csv + student_analysis.log
 ```
 
----
-
-### Option 3: Jupyter Notebook
+### 2.3. Phương án 3: Jupyter Notebook
 
 ```powershell
-# 1. Activate environment
+# Bước 1: Kích hoạt môi trường ảo
 .\student_env\Scripts\activate
 
-# 2. Start Jupyter
+# Bước 2: Khởi động Jupyter
 jupyter notebook notebook.ipynb
 ```
 
-## 💡 Cách sử dụng từng module
+## 3. Hướng dẫn Sử dụng các Module
 
-### Config Layer
+### 3.1. Tầng Cấu hình (Config Layer)
 
 ```python
 from src.config.database import DatabaseConfig
@@ -105,36 +101,36 @@ high_gpa = repo.fetch_by_gpa_range(3.5, 4.0)
 search_results = repo.search_by_name("Nguyen")
 ```
 
-### Analytics Service (UI-Friendly Design)
+### 3.3. Dịch vụ Phân tích (Analytics Service)
 
 ```python
 from src.services.analytics_service import StudentAnalyticsService
 
-# Khởi tạo với DataFrame (decoupled from DB)
+# Khởi tạo với DataFrame (tách biệt khỏi Database)
 analytics = StudentAnalyticsService(df)
 
-# Method chaining support
-analytics.impute_missing()          # Điền missing values by major
+# Hỗ trợ method chaining
+analytics.impute_missing()          # Điền giá trị thiếu theo nhóm major
 analytics.add_bmi()                 # Tính BMI (vectorized)
 analytics.add_age()                 # Tính tuổi
-analytics.add_zscores()             # Z-score normalization
+analytics.add_zscores()             # Chuẩn hóa Z-score
 
-# ⭐ KEY FEATURE: Parameterized outlier detection
-outliers_strict = analytics.detect_outliers_iqr('bmi', multiplier=1.5)  # Strict
-outliers_relaxed = analytics.detect_outliers_iqr('bmi', multiplier=3.0) # Relaxed
+# Tính năng chính: Phát hiện ngoại lệ với tham số linh hoạt
+outliers_strict = analytics.detect_outliers_iqr('bmi', multiplier=1.5)  # Nghiêm ngặt
+outliers_relaxed = analytics.detect_outliers_iqr('bmi', multiplier=3.0) # Linh hoạt
 
-# Summary statistics
+# Thống kê tổng hợp
 summary = analytics.get_summary_by_major()
 
-# Lấy processed data
+# Lấy dữ liệu đã xử lý
 processed_df = analytics.get_data()
 ```
 
-**Design Highlights:**
-- ✅ Accepts DataFrame (not tied to repository)
-- ✅ Parameterized methods (threshold, reference_date)
-- ✅ Immutable operations (returns new data)
-- ✅ Perfect for UI integration
+**Điểm nổi bật của thiết kế:**
+- Nhận DataFrame đầu vào (không phụ thuộc repository)
+- Phương thức tham số hóa (threshold, reference_date)
+- Thao tác bất biến (trả về dữ liệu mới)
+- Tích hợp hoàn hảo với giao diện người dùng
 
 ### Report Generator
 
@@ -183,34 +179,34 @@ print(generator.get_top_students(k=3))
 client.close()
 ```
 
-## 🎯 Các chức năng chính
+## 4. Các Chức năng Chính
 
-### 1. Xử lý Missing Values
+### 4.1. Xử lý Dữ liệu Thiếu (Missing Values)
 
-- **Median by group** thay vì mean toàn bộ
-- `height_cm`, `weight_kg`: median theo `gender`
-- `gpa`: median theo `major`
+- Chiến lược: **Median theo nhóm** (thay vì mean toàn bộ)
+- Các trường `height_cm`, `weight_kg`: Median theo `gender`
+- Trường `gpa`: Median theo `major`
 
-### 2. Feature Engineering
+### 4.2. Tạo Đặc trưng (Feature Engineering)
 
-- **BMI**: Vectorized với NumPy
-- **Age**: Tính từ date of birth
+- **BMI**: Tính toán vectorized với NumPy
+- **Age**: Tính từ ngày sinh (date of birth)
 - **Z-scores**: Chuẩn hóa các cột số
 
-### 3. Outlier Detection
+### 4.3. Phát hiện Ngoại lệ (Outlier Detection)
 
-- **IQR method**: [Q1 - 1.5×IQR, Q3 + 1.5×IQR]
-- Áp dụng cho: BMI, GPA
+- Phương pháp: **IQR** với khoảng [Q1 - 1.5×IQR, Q3 + 1.5×IQR]
+- Áp dụng cho các trường: BMI, GPA
 
-### 4. Statistics
+### 4.4. Thống kê
 
-- Summary by major
-- Top K students per major
-- Ranked by GPA, then credits
+- Tổng hợp theo từng ngành (major)
+- Top K sinh viên xuất sắc mỗi ngành
+- Xếp hạng theo GPA, tiếp theo là credits
 
-## 🔧 Troubleshooting
+## 5. Xử lý Sự cố
 
-### Lỗi kết nối database
+### 5.1. Lỗi kết nối cơ sở dữ liệu
 
 ```python
 # Kiểm tra config
@@ -244,16 +240,18 @@ analytics = StudentAnalyticsService(df)
 analytics.impute_missing()
 ```
 
-## 📈 Best Practices
+## 6. Nguyên tắc Thực hành Tốt
 
-1. **Luôn close connection**: `client.close()`
-2. **Sử dụng logging**: Xem log trong `student_analysis.log`
-3. **Validate data**: Dùng `DataValidator` trước khi xử lý
-4. **Backup data**: Lưu file CSV trước khi xử lý
+1. **Đóng kết nối**: Luôn gọi `client.close()` sau khi hoàn tất
+2. **Sử dụng logging**: Theo dõi log trong file `student_analysis.log`
+3. **Kiểm tra dữ liệu**: Sử dụng `DataValidator` trước khi xử lý
+4. **Sao lưu dữ liệu**: Lưu file CSV trước khi thực hiện xử lý
 
-## 🎓 Học thêm
+## 7. Tài liệu Tham khảo
 
-- Xem code trong từng file để hiểu chi tiết
-- Đọc docstrings của mỗi function
-- Chạy notebook từng cell để hiểu flow
-- Thử modify parameters để thấy sự khác biệt
+Để hiểu rõ hơn về hệ thống:
+
+- Nghiên cứu mã nguồn trong từng file module
+- Đọc docstrings của các function để hiểu đầy đủ tham số
+- Chạy notebook theo từng cell để nắm bắt quy trình
+- Thử nghiệm với các tham số khác nhau để quan sát sự thay đổi

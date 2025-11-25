@@ -1,44 +1,44 @@
-# 🚀 NICEGUI WEB APPLICATION - "TOP 0.1% MINDSET"
+# Hướng dẫn Ứng dụng Web NiceGUI
 
-## 🎯 Tại sao NiceGUI là lựa chọn xuất sắc?
+## 1. Giới thiệu và Lý do Lựa chọn
 
-### So sánh với Streamlit
+### 1.1. Phân tích So sánh Framework
 
-| Feature | Streamlit | **NiceGUI** ⭐ |
-|---------|-----------|---------------|
-| **Performance** | Rerun toàn bộ script | Event-driven, chỉ update cần thiết |
-| **UI Flexibility** | Limited components | Full Quasar Framework (Vue.js) |
-| **Real-time Updates** | Requires workarounds | Native WebSocket support |
-| **Learning Curve** | Easy | Moderate |
-| **Production Ready** | Good | **Excellent** |
-| **Parameter Tuning** | Session state complex | **Simple state management** |
+| Tiêu chí | Streamlit | NiceGUI |
+|----------|-----------|----------|
+| **Hiệu năng** | Chạy lại toàn bộ script | Event-driven, chỉ cập nhật phần thay đổi |
+| **Tính linh hoạt UI** | Component hạn chế | Quasar Framework đầy đủ (Vue.js) |
+| **Cập nhật Real-time** | Cần workaround | Hỗ trợ WebSocket tích hợp sẵn |
+| **Độ khó học** | Dễ dàng | Trung bình |
+| **Sẵn sàng Production** | Tốt | Xuất sắc |
+| **Điều chỉnh tham số** | Quản lý state phức tạp | Quản lý state đơn giản |
 
-### "Top 0.1%" Features implemented
+### 1.2. Các Tính năng Đã Triển khai
 
-1. ✅ **Separation of Concerns**: UI ← Service ← Repository (Clean Architecture)
-2. ✅ **Interactive Pipeline**: Real-time parameter tuning với slider
-3. ✅ **Dynamic Feedback**: Instant notifications cho mọi action
-4. ✅ **Professional UX**: Sidebar, Tabs, Cards, Loading states
-5. ✅ **Data Immutability**: Service không modify original data
-6. ✅ **Method Chaining**: Fluent interface pattern
+Hệ thống đã được xây dựng với các tính năng chính sau:
 
----
+1. **Kiến trúc Phân tầng**: Tuân thủ Clean Architecture (UI ← Service ← Repository)
+2. **Pipeline Tương tác**: Điều chỉnh tham số real-time thông qua slider
+3. **Phản hồi Động**: Thông báo tức thì cho mọi thao tác người dùng
+4. **Trải nghiệm Chuyên nghiệp**: Sidebar, Tabs, Cards, và Loading states
+5. **Tính Bất biến Dữ liệu**: Service không sửa đổi dữ liệu gốc
+6. **Method Chaining**: Áp dụng Fluent Interface Pattern
 
-## 📋 Cài đặt
+## 2. Hướng dẫn Cài đặt
 
-### 1. Install Dependencies
+### 2.1. Cài đặt Thư viện Phụ thuộc
 
 ```powershell
-# Activate environment
+# Kích hoạt môi trường ảo
 .\student_env\Scripts\Activate.ps1
 
-# Install NiceGUI + Plotly
+# Cài đặt các thư viện cần thiết
 pip install -r requirements.txt
 ```
 
-**Thư viện mới:**
-- `nicegui>=1.4.0` - Modern web framework
-- `plotly>=5.17.0` - Interactive charts
+**Các thư viện chính được bổ sung:**
+- `nicegui>=1.4.0` - Framework web hiện đại
+- `plotly>=5.17.0` - Thư viện biểu đồ tương tác
 
 ### 2. Verify Installation
 
@@ -48,34 +48,32 @@ python -c "import nicegui; print(nicegui.__version__)"
 
 ---
 
-## 🎮 Chạy ứng dụng
+## 3. Khởi chạy Ứng dụng
 
-### Quick Start
+### 3.1. Quy trình Khởi động
 
 ```powershell
-# 1. Activate environment
+# Bước 1: Kích hoạt môi trường ảo
 .\student_env\Scripts\Activate.ps1
 
-# 2. Ensure .env is configured
-# (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+# Bước 2: Đảm bảo file .env đã được cấu hình
+# Các biến cần thiết: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
 
-# 3. Run NiceGUI app
+# Bước 3: Chạy ứng dụng NiceGUI
 python app.py
 ```
 
-### Kết quả
+### 3.2. Kết quả Khởi động
 
 ```
 NiceGUI ready to go on http://localhost:8080
 ```
 
-**Browser tự động mở** → Ứng dụng chạy tại `http://localhost:8080` 🎉
+Trình duyệt sẽ tự động mở và hiển thị ứng dụng tại địa chỉ `http://localhost:8080`
 
----
+## 4. Kiến trúc Hệ thống
 
-## 🎯 Kiến trúc "Top 0.1%"
-
-### 1. Layered Architecture
+### 4.1. Mô hình Phân tầng
 
 ```
 ┌─────────────────────────────────────┐
@@ -305,7 +303,7 @@ fig = px.scatter(df, x='weight_kg', y='bmi', color='major',
 
 ---
 
-## 🏆 "Top 0.1%" Justification
+## 🏆 Justification
 
 ### 1. Clean Architecture (Separation of Concerns)
 
@@ -582,7 +580,7 @@ python app.py
 ✅ Safety Features (Backup/Undo system)
 ✅ Production-ready code structure
 
-Đây là cách Top 0.1% sinh viên làm Data Science project! 🚀"
+
 ```
 → Open in Excel/VSCode để verify
 ```
@@ -710,7 +708,7 @@ async def main_page(request):
 
 ## 🎉 Kết luận
 
-**NiceGUI App hoàn chỉnh với "Top 0.1%" features:**
+**NiceGUI App hoàn chỉnh với các tính năng:**
 
 ✅ **Clean Architecture** - Separation of Concerns  
 ✅ **Parameter Tuning** - Interactive IQR slider  
@@ -730,4 +728,4 @@ async def main_page(request):
 python app.py
 ```
 
-🚀 **Good luck với presentation! Bạn sẽ impress giáo viên!** 🎓
+
