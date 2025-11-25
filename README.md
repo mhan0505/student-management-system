@@ -1,34 +1,36 @@
-# 🎓 Student Management System - "Top 0.1% Edition"
+# 🎓 Hệ thống Quản lý Sinh viên
 
-Hệ thống quản lý và phân tích dữ liệu sinh viên với **Interactive Web UI (NiceGUI)** và **CLI**, sử dụng Python, MySQL, Pandas và NumPy.
+Đây là project cuối kỳ môn Python - Xây dựng hệ thống quản lý và phân tích dữ liệu sinh viên với giao diện web tương tác (NiceGUI), MySQL database, và các công cụ phân tích dữ liệu như Pandas/NumPy.
 
-## ⭐ NEW: NiceGUI Web Interface
-- 🎨 Modern, responsive UI with Quasar Framework
-- 🎛️ **Interactive parameter tuning** (IQR threshold slider)
-- 📊 Real-time analytics với Plotly charts
-- 🔄 Before/After data comparison
-- 💾 One-click CSV export
-- 🏗️ Clean Architecture (UI ← Service ← Repository)
-- 🛠️ **Full CRUD Operations** (Add, Update, Delete, Filter)
-- ↩️ **Backup/Undo System** (Automatic backup on delete, restore last 10)
+## ✨ Tính năng chính
 
-**📚 Documentation:**
-- [docs/NICEGUI_GUIDE.md](docs/NICEGUI_GUIDE.md) - Complete Web UI guide
-- [CRUD_FEATURES.md](CRUD_FEATURES.md) - CRUD Operations & Backup System
-- [NICEGUI_SUMMARY.md](NICEGUI_SUMMARY.md) - Implementation summary
+### 🌐 Giao diện Web (NiceGUI)
+- Thiết kế responsive với Quasar Framework
+- Điều chỉnh tham số phân tích trực tiếp trên giao diện (IQR threshold slider)
+- Biểu đồ tương tác real-time với Plotly
+- So sánh dữ liệu trước/sau xử lý
+- Export CSV chỉ với một click
+- Kiến trúc phân tầng rõ ràng (UI ← Service ← Repository)
+- Đầy đủ chức năng CRUD (Thêm, Sửa, Xóa, Lọc)
+- Hệ thống backup tự động khi xóa + khôi phục lại 10 lần xóa gần nhất
+
+**📖 Tài liệu chi tiết:**
+- [docs/NICEGUI_GUIDE.md](docs/NICEGUI_GUIDE.md) - Hướng dẫn sử dụng giao diện web
+- [CRUD_FEATURES.md](CRUD_FEATURES.md) - Chi tiết các chức năng CRUD & Backup
+- [NICEGUI_SUMMARY.md](NICEGUI_SUMMARY.md) - Tóm tắt implementation
 
 ---
 
-## 📋 Mô tả
+## 📋 Giới thiệu
 
-Project này xây dựng một pipeline hoàn chỉnh để:
-- Kết nối và truy vấn dữ liệu từ MySQL
-- Xử lý dữ liệu thiếu (missing data imputation by major)
-- Tạo các đặc trưng mới (BMI, Age, Z-scores)
-- Phát hiện ngoại lệ (outlier detection với **custom IQR threshold**)
-- Tạo báo cáo thống kê theo ngành học
+Project này xây dựng một quy trình xử lý dữ liệu hoàn chỉnh bao gồm:
+- Kết nối và truy vấn dữ liệu từ MySQL database
+- Xử lý dữ liệu thiếu (tự động điền theo nhóm major)
+- Tính toán các chỉ số mới (BMI, tuổi, Z-scores)
+- Phát hiện ngoại lệ với ngưỡng IQR có thể tùy chỉnh
+- Tạo báo cáo thống kê theo từng ngành học
 - Xuất kết quả ra file CSV
-- **✨ Interactive web UI cho parameter exploration**
+- Giao diện web để thử nghiệm các tham số phân tích
 
 ## 🏗️ Cấu trúc Project
 
@@ -72,64 +74,64 @@ student_management_system/
 └── README.md
 ```
 
-## 🎯 Key Features
+## 🎯 Các tính năng chính
 
-### 📊 Analytics Pipeline
-- Missing data imputation (by major)
-- Feature engineering (BMI, Age, Z-scores)
-- Outlier detection with custom IQR threshold
-- Statistical reports by major
+### 📊 Phân tích dữ liệu
+- Tự động xử lý dữ liệu bị thiếu (theo từng nhóm major)
+- Tính toán các chỉ số mới (BMI, tuổi, Z-scores)
+- Phát hiện ngoại lệ với ngưỡng IQR tùy chỉnh được
+- Tạo báo cáo thống kê theo ngành học
 
-### 🛠️ Data Management (CRUD)
-- **Create**: Add new students with 14-field validation
-- **Read**: Load and view data with AG Grid pagination
-- **Update**: Modify student information (13 editable fields)
-- **Delete**: Remove students with automatic backup
-- **Filter**: Query students by GPA threshold
+### 🛠️ Quản lý dữ liệu (CRUD)
+- **Thêm mới**: Thêm sinh viên với validation 14 trường thông tin
+- **Xem**: Hiển thị dữ liệu với bảng phân trang (20/50/100/200/500 dòng)
+- **Sửa**: Chỉnh sửa thông tin sinh viên (13 trường có thể sửa)
+- **Xóa**: Xóa sinh viên kèm backup tự động
+- **Lọc**: Tìm kiếm sinh viên theo ngưỡng GPA
 
-### 🔒 Safety Features
-- **Automatic Backup**: Every deletion creates a backup
-- **Undo Delete**: Restore last 10 deleted students
-- **FIFO Queue**: Maintains max 10 backups in memory
-- **Full Record Preservation**: All 14 fields + timestamp saved
+### 🔒 Bảo vệ dữ liệu
+- **Backup tự động**: Mỗi lần xóa đều tạo bản sao lưu
+- **Hoàn tác**: Khôi phục lại 10 lần xóa gần nhất
+- **Hàng đợi FIFO**: Giữ tối đa 10 bản backup trong bộ nhớ
+- **Lưu đầy đủ**: Cả 14 trường dữ liệu + timestamp
 
-## 🚀 Quick Start
+## 🚀 Hướng dẫn chạy nhanh
 
-### ⭐ Option 1: Web UI (NiceGUI) - RECOMMENDED ⭐
+### ⭐ Cách 1: Giao diện Web (NiceGUI) - Khuyên dùng ⭐
 
 ```powershell
-# 1. Activate environment
+# Bước 1: Kích hoạt môi trường ảo
 .\student_env\Scripts\Activate.ps1
 
-# 2. Install dependencies (nếu chưa)
+# Bước 2: Cài đặt thư viện (nếu chưa có)
 pip install -r requirements.txt
 
-# 3. Configure .env file
-# Đảm bảo có: MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB
+# Bước 3: Cấu hình file .env
+# Cần có: MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB
 
-# 4. Run NiceGUI app
+# Bước 4: Chạy ứng dụng
 python app.py
 ```
 
-**🌐 Server starts at:** `http://localhost:8080`
+**🌐 Mở trình duyệt tại:** `http://localhost:8080`
 
-**✨ Top 0.1% Features:**
-- 🎛️ **Interactive IQR Threshold Slider** (1.0 - 3.0) - Parameter tuning!
-- 📊 **Real-time Plotly Charts** - Interactive visualizations
-- 📋 **AgGrid Data Table** - Sortable, filterable, paginated (20/50/100/200/500 rows)
-- 🎯 **Outlier Detection** - Visual feedback with student details
-- 💾 **One-click CSV Export** - Instant download to Downloads folder
-- 🔄 **Before/After Comparison** - See data transformation
-- 🎨 **Modern UI** - Sidebar, tabs, notification system
-- ➕ **CRUD Operations** - Add, Update, Delete students with full validation
-- ↩️ **Backup/Undo System** - Automatic backup on delete, restore last 10 deletions
-- 🔍 **Filter by GPA** - Query students above GPA threshold
+**✨ Những tính năng nổi bật:**
+- 🎛️ **Thanh trượt điều chỉnh IQR** (1.0 - 3.0) - Thử nghiệm các ngưỡng khác nhau!
+- 📊 **Biểu đồ Plotly tương tác** - Khám phá dữ liệu trực quan
+- 📋 **Bảng dữ liệu AgGrid** - Sắp xếp, lọc, phân trang (20/50/100/200/500 dòng)
+- 🎯 **Phát hiện ngoại lệ** - Hiển thị chi tiết các điểm bất thường
+- 💾 **Export CSV một chạm** - Tải xuống ngay vào thư mục Downloads
+- 🔄 **So sánh trước/sau** - Xem dữ liệu thay đổi như thế nào
+- 🎨 **Giao diện hiện đại** - Sidebar, tabs, hệ thống thông báo
+- ➕ **Quản lý CRUD đầy đủ** - Thêm, sửa, xóa sinh viên với validation
+- ↩️ **Hệ thống Backup/Undo** - Tự động backup khi xóa, khôi phục 10 lần gần nhất
+- 🔍 **Lọc theo GPA** - Tìm sinh viên đạt ngưỡng điểm
 
-**👉 See [docs/NICEGUI_GUIDE.md](docs/NICEGUI_GUIDE.md) for complete guide**
+**👉 Xem chi tiết tại [docs/NICEGUI_GUIDE.md](docs/NICEGUI_GUIDE.md)**
 
 ---
 
-### Option 2: CLI (Command Line)
+### Cách 2: Dòng lệnh (CLI)
 
 ## 🚀 Cài đặt
 
@@ -165,15 +167,15 @@ MYSQL_PORT=3306
 MYSQL_DB=university
 ```
 
-## 💻 Sử dụng
+## 💻 Cách sử dụng
 
-### Chạy pipeline hoàn chỉnh
+### Chạy toàn bộ quy trình phân tích
 
 ```powershell
 python main.py
 ```
 
-**Lưu ý:** Mỗi lần chạy sẽ tự động tạo backup của dữ liệu gốc vào thư mục `backups/`
+**Lưu ý:** Mỗi lần chạy hệ thống sẽ tự động tạo bản backup dữ liệu gốc vào folder `backups/`
 
 ### Quản lý Backup
 
@@ -217,24 +219,24 @@ generator = StudentReportGenerator(repository)
 df = generator.generate_full_report()
 ```
 
-## 📊 Chức năng chính
+## 📊 Các chức năng chính
 
-### 1. Data Access Layer
-- `MySQLClient`: Kết nối MySQL và thực thi queries
-- `StudentRepository`: Truy vấn dữ liệu sinh viên
+### 1. Lớp truy xuất dữ liệu
+- `MySQLClient`: Quản lý kết nối MySQL và chạy các câu lệnh query
+- `StudentRepository`: Lấy dữ liệu sinh viên từ database
 
-### 2. Analytics Service
-- `impute_missing()`: Xử lý dữ liệu thiếu
-- `add_bmi()`: Tính chỉ số BMI
-- `add_age()`: Tính tuổi từ ngày sinh
-- `add_zscores()`: Chuẩn hóa Z-score
-- `detect_outliers_iqr()`: Phát hiện ngoại lệ
-- `summary_by_major()`: Thống kê theo ngành
-- `top_k_per_major()`: Xếp hạng top sinh viên
+### 2. Dịch vụ phân tích
+- `impute_missing()`: Tự động điền các ô dữ liệu bị thiếu
+- `add_bmi()`: Tính chỉ số BMI (cân nặng/chiều cao)
+- `add_age()`: Tính tuổi dựa vào ngày sinh
+- `add_zscores()`: Chuẩn hóa dữ liệu về dạng Z-score
+- `detect_outliers_iqr()`: Tìm các điểm dữ liệu bất thường
+- `summary_by_major()`: Tạo bảng thống kê theo từng ngành
+- `top_k_per_major()`: Xếp hạng sinh viên giỏi nhất mỗi ngành
 
-### 3. Report Generator
-- `generate_full_report()`: Tạo báo cáo hoàn chỉnh
-- `export_csv()`: Xuất dữ liệu ra CSV
+### 3. Tạo báo cáo
+- `generate_full_report()`: Tạo báo cáo phân tích đầy đủ
+- `export_csv()`: Xuất kết quả ra file CSV
 
 ## 📈 Pipeline xử lý dữ liệu
 
@@ -268,11 +270,11 @@ pytest tests/
 - MySQL 5.7+
 - Dependencies xem trong `requirements.txt`
 
-## 🎓 Tác giả
+## 🎓 Thông tin
 
-- Sinh viên: [Lại Minh An]
-- Lớp: DSEB
-- Môn học: Data Science with Python
+- Sinh viên: Lại Minh An
+- Lớp: DSEB 66A
+- Môn học: Python for Data Science
 
 ## 📄 License
 
